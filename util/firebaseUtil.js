@@ -78,10 +78,35 @@ function fetchObjectDao(objectId) {
 
 }
 
+async function deleteObjectDao(id) {
+    if (!firebase.apps.length) {
+        initializeFirebase();
+    }
+    console.log('idex', id);
+    var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
+    const result ='';
+    await dataBaseRef.once("value", function (data) {
+        const todoList = data.val();
+
+        for (var key in todoList) {
+            if (todoList[key].id == id) {
+                console.log(todoList[key]);
+                dataBaseRef.child(key).remove();
+
+                break;
+            }
+        }
+
+    });
+
+
+}
+
 module.exports = {
     saveObjectDAO: saveObjectDAO,
     fetchAllTodosDAO: fetchAllTodosDAO,
-    fetchObjectDao: fetchObjectDao
+    fetchObjectDao: fetchObjectDao,
+    deleteObjectDao: deleteObjectDao
 
 
 };

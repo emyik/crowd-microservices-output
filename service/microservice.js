@@ -10,7 +10,7 @@ function FetchObjectImplementation(objectId) {
 
 function FetchAllObjectsImplementation(userId, res) {
     //Implementation code here
-    const listOFTodos= firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function(snapshot){
+    const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
         res.send(snapshot.val());
     });
 
@@ -25,6 +25,14 @@ function SaveObjectImplementation(todo) {
     return "Saved";
 }
 
+async function DeleteObjectImplementation(todo) {
+    console.log('executed2');
+    const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
+    console.log('executed3');
+    var result = await firebasePromise
+    console.log('executed4');
+    return result;
+}
 
 function addTodo(todo) {
 
@@ -82,8 +90,6 @@ function deleteTodo(todo) {
 }
 
 
-
-
 function fetchTodo(id) {
     //Implementation code here
 
@@ -97,8 +103,6 @@ function fetchTodo(id) {
         return _todo;
 
 }
-
-
 
 
 function DeleteObject(todo) {
@@ -130,9 +134,6 @@ function fetchAllTodos(userId, res) {
     }
 
 }
-
-
-
 
 
 function createGroup(todoArray, groupId) {
@@ -296,7 +297,7 @@ module.exports = {
     fetchTodo: fetchTodo,
     FetchObjectImplementation: FetchObjectImplementation,
     DeleteObject: DeleteObject,
-    UpdateObject: UpdateObject,
+    DeleteObjectImplementation: DeleteObjectImplementation,
     fetchAllTodos: fetchAllTodos,
     FetchAllObjectsImplementation: FetchAllObjectsImplementation,
     createGroup: createGroup,
