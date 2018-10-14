@@ -25,6 +25,12 @@ function SaveObjectImplementation(todo) {
     return "Saved";
 }
 
+function UpdateObjectImplementation(todo) {
+    //Implementation code here
+    firebaseUtil.updateObjectDAO(todo);
+    return "updated";
+}
+
 async function DeleteObjectImplementation(todo) {
     console.log('executed2');
     const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
@@ -111,10 +117,7 @@ function DeleteObject(todo) {
 }
 
 
-function UpdateObject(todo) {
-    //Implementation code here
-    return {};
-}
+
 
 
 function fetchAllTodos(userId, res) {
@@ -294,6 +297,7 @@ module.exports = {
     updateTodo: updateTodo,
     deleteTodo: deleteTodo,
     SaveObjectImplementation: SaveObjectImplementation,
+    UpdateObjectImplementation:UpdateObjectImplementation,
     fetchTodo: fetchTodo,
     FetchObjectImplementation: FetchObjectImplementation,
     DeleteObject: DeleteObject,

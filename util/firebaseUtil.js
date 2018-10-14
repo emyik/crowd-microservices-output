@@ -37,7 +37,7 @@ function saveObjectDAO(title, description, dueDate, dataStoreId, userId, id, sta
         dataStoreId: dataStoreId,
         userId: userId,
         id: id,
-        status: 2,
+        status: status,
         groupId: groupId === undefined ? null : groupId,
         createdTime: new Date().toLocaleTimeString("en-us", timeOptions),
         createdDate: new Date().toLocaleTimeString("en-us", dateAndTimeOptions),
@@ -82,7 +82,7 @@ async function deleteObjectDao(id) {
     if (!firebase.apps.length) {
         initializeFirebase();
     }
-    console.log('idex', id);
+  //  console.log('idex', id);
     var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
     const result ='';
     await dataBaseRef.once("value", function (data) {
@@ -101,9 +101,38 @@ async function deleteObjectDao(id) {
 
 
 }
+async function updateObjectDAO(object) {
+    if (!firebase.apps.length) {
+        initializeFirebase();
+    }
+    //  console.log('idex', id);
+    var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
+    await dataBaseRef.once("value", function (data) {
+        const todoList = data.val();
+        const updateSchema={
+            title: object.title,
+            description: object.description,
+            dueDate: object.dueDate === undefined ? null : object.dueDate,
+            status: object.status,
+            createdTime: new Date().toLocaleTimeString("en-us", timeOptions),
+            createdDate: new Date().toLocaleTimeString("en-us", dateAndTimeOptions),
+            priority: object.priority,
+            }
+        for (var key in todoList) {
+            if (todoList[key].id == object.id) {
+                console.log(todoList[key]);
+                dataBaseRef.child(key).update(updateSchema);
+
+                break;
+            }
+        }
+
+    });
+}
 
 module.exports = {
     saveObjectDAO: saveObjectDAO,
+    updateObjectDAO: updateObjectDAO,
     fetchAllTodosDAO: fetchAllTodosDAO,
     fetchObjectDao: fetchObjectDao,
     deleteObjectDao: deleteObjectDao
