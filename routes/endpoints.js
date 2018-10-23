@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var service = require('../service/microservice');
-
+var testEnvironment = true;
 router.get('/addTodo', function (req, res) {
     res.send(service.addTodo(req.query.todo));
 });
@@ -50,7 +50,22 @@ router.get('/fetchTodo', async (req, res, next) => {
     } catch (e) {
         //this will eventually be handled by your error handling middleware
         if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
-            res.send(null);
+            const todo = {
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            };
+            res.send(todo);
         } else {
 
             console.log('exception: ', e.message);
@@ -90,13 +105,45 @@ router.post('/UpdateObject', function (req, res) {
 });
 
 
-router.get('/fetchAllTodos', function (req, res) {
-    service.fetchAllTodos(req.query.userId, res)
-});
+router.get('/fetchAllTodos', async (req, res, next) => {
+        if (testEnvironment) {
+            try {
+                const todoList = await service.fetchAllTodos(req.query.userId);
+                res.json(todoList);
+            } catch (e) {
+                //this will eventually be handled by your error handling middleware
+                if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+                    const nullTodo = [{
+                        title: 'null',
+                        description: 'null',
+                        dueDate: 'null',
+                        dataStoreId: "null",
+                        userId: 'null',
+                        id: 'null',
+                        status: 'null',
+                        groupId: 'null',
+                        createdTime: 'null',
+                        createdDate: 'null',
+                        priority: 'null',
+                        address: 'null',
+                        repeat: 'null'
+                    }];
+                    res.send(nullTodo);
+                } else {
+
+                    console.log('exception: ', e.message);
+                    next(e);
+                }
+            }
+        } else {
+            service.fetchAllTodosFromDB(req.query.userId, res);
+        }
+    }
+);
 
 router.post('/fetchAllTodos', function (req, res) {
     // res.send(service.fetchAllTodos(req.body.userId));
-    service.fetchAllTodos(req.query.userId, res)
+    service.fetchAllTodosFromDB(req.query.userId, res)
 });
 
 

@@ -7,8 +7,24 @@ var testEnvironment = true;
 async function FetchObjectImplementation(objectId) {
 
     if (testEnvironment) {
+      const todo = {
+          title: 'commit code',
+          description: 'be sure to commit unit tests',
+          dueDate: '02/25/2018',
+          dataStoreId: "schoolworkds",
+          userId: 'eaghayi',
+          id: '234',
+          status: 'in-progress',
+          groupId: 'school',
+          createdTime: '1:30pm',
+          createdDate: '02/25/2018',
+          priority: 'low',
+          address: '',
+          repeat: ''
+      };
 
-        return {title: "fetchedObj"};
+
+        return todo;
 
     } else {
 
@@ -20,12 +36,45 @@ async function FetchObjectImplementation(objectId) {
 }
 
 function FetchAllObjectsImplementation(userId, res) {
-    //Implementation code here
-    const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
-        res.send(snapshot.val());
-    });
+    if (testEnvironment) {
+        const todoList =[ {
+            title: 'commit code',
+            description: 'be sure to commit unit tests',
+            dueDate: '02/25/2018',
+            dataStoreId: "schoolworkds",
+            userId: 'eaghayi',
+            id: '1',
+            status: 'in-progress',
+            groupId: 'school',
+            createdTime: '1:30pm',
+            createdDate: '02/25/2018',
+            priority: 'low',
+            address: '',
+            repeat: ''}, {
+            title: 'push code',
+            description: 'be sure to push unit tests',
+            dueDate: '02/25/2018',
+            dataStoreId: "schoolworkds",
+            userId: 'eaghayi',
+            id: '2',
+            status: 'in-progress',
+            groupId: 'school',
+            createdTime: '1:30pm',
+            createdDate: '02/25/2018',
+            priority: 'low',
+            address: '',
+            repeat: ''}];
 
-    return listOFTodos;
+
+        return todoList;
+
+    } else {
+        const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
+            res.send(snapshot.val());
+        });
+
+        return listOFTodos;
+    }
 }
 
 // function SaveObject(todo) {
@@ -124,13 +173,26 @@ function deleteTodo(todo) {
 }
 
 
-function DeleteObject(todo) {
+function fetchAllTodos(userId) {
     //Implementation code here
-    return {};
+    if (userId === null || userId === '') {
+        throw new TypeError('IllegalArgumentException');
+    }
+    // if (fetchTodo(userId) == null) {
+    //     return null;
+    // }
+    var allTodos = FetchAllObjectsImplementation(userId);
+    if (allTodos == null) {
+        throw new TypeError('IllegalArgumentException');
+    }
+    else {
+        return allTodos;
+    }
+
 }
 
 
-function fetchAllTodos(userId, res) {
+function fetchAllTodosFromDB(userId, res) {
     //Implementation code here
     if (userId === null || userId === '') {
         throw new TypeError('IllegalArgumentException');
@@ -310,9 +372,10 @@ module.exports = {
     UpdateObjectImplementation: UpdateObjectImplementation,
     fetchTodo: fetchTodo,
     FetchObjectImplementation: FetchObjectImplementation,
-    DeleteObject: DeleteObject,
+
     DeleteObjectImplementation: DeleteObjectImplementation,
     fetchAllTodos: fetchAllTodos,
+    fetchAllTodosFromDB: fetchAllTodosFromDB,
     FetchAllObjectsImplementation: FetchAllObjectsImplementation,
     createGroup: createGroup,
     getAllTodoOfaGroup: getAllTodoOfaGroup,
