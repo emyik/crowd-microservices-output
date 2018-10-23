@@ -64,27 +64,39 @@ function fetchAllTodosDAO(userId) {
 }
 
 
-function fetchObjectDao(objectId) {
+async function fetchObjectDao(objectId) {
     if (!firebase.apps.length) {
         initializeFirebase();
     }
-    // initializeFirebase();
-    var dataBaseRootRef = firebase.database().ref();
-    dataBaseRootRef.child('todoList').child(objectId).on("value", function (snapshot) {
-        return snapshot.val();
-    }, function (error) {
-        console.log("Error: " + error.code);
+
+    var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
+    var result;
+     await dataBaseRef.once("value", function (data) {
+        const todoList = data.val();
+
+        for (var key in todoList) {
+            if (todoList[key].id == objectId) {
+                //console.log(todoList[key]);
+                result = todoList[key];
+
+
+            }
+        }
+
+
+
     });
 
-}
+     return result;
+};
 
 async function deleteObjectDao(id) {
     if (!firebase.apps.length) {
         initializeFirebase();
     }
-  //  console.log('idex', id);
+    //  console.log('idex', id);
     var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
-    const result ='';
+    const result = '';
     await dataBaseRef.once("value", function (data) {
         const todoList = data.val();
 
@@ -101,6 +113,7 @@ async function deleteObjectDao(id) {
 
 
 }
+
 async function updateObjectDAO(object) {
     if (!firebase.apps.length) {
         initializeFirebase();
@@ -109,7 +122,7 @@ async function updateObjectDAO(object) {
     var dataBaseRef = await firebase.database().ref().child("emadaghayi").child('todoList');
     await dataBaseRef.once("value", function (data) {
         const todoList = data.val();
-        const updateSchema={
+        const updateSchema = {
             title: object.title,
             description: object.description,
             dueDate: object.dueDate === undefined ? null : object.dueDate,
@@ -117,7 +130,7 @@ async function updateObjectDAO(object) {
             createdTime: new Date().toLocaleTimeString("en-us", timeOptions),
             createdDate: new Date().toLocaleTimeString("en-us", dateAndTimeOptions),
             priority: object.priority,
-            }
+        }
         for (var key in todoList) {
             if (todoList[key].id == object.id) {
                 console.log(todoList[key]);

@@ -39,10 +39,25 @@ router.post('/SaveObject', function (req, res) {
 });
 
 
-router.get('/fetchTodo', function (req, res) {
-    res.send(service.fetchTodo(req.query.id));
-});
+// router.get('/fetchTodo', function (req, res) {
+//     console.log('fetchTod',service.fetchTodo(req.query.id));
+//     res.send(service.fetchTodo(req.query.id));
+// });
+router.get('/fetchTodo', async (req, res, next) => {
+    try {
+        const todo = await service.fetchTodo(req.query.id);
+        res.json(todo);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            res.send(null);
+        } else {
 
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+});
 router.post('/fetchTodo', function (req, res) {
     res.send(service.fetchTodo(req.body.id));
 });

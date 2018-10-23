@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 // add route of endpoints
 var endpoints = require('./routes/endpoints');
-var datastore = require('./routes/datastore');
+//var datastore = require('./routes/datastore');
 var firebase = require('./util/firebaseUtil')
 
 

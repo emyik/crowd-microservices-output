@@ -2,10 +2,21 @@
 // var router = express.Router();
 
 var firebaseUtil = require('../util/firebaseUtil');
+var testEnvironment = true;
 
-function FetchObjectImplementation(objectId) {
-    const todo = firebaseUtil.fetchObjectDao(objectId);
-    return todo;
+async function FetchObjectImplementation(objectId) {
+
+    if (testEnvironment) {
+
+        return {title: "fetchedObj"};
+
+    } else {
+
+        const todo = await firebaseUtil.fetchObjectDao(objectId);
+        if (todo === undefined || todo === {}) {
+            return null;
+        } else return todo;
+    }
 }
 
 function FetchAllObjectsImplementation(userId, res) {
@@ -18,16 +29,16 @@ function FetchAllObjectsImplementation(userId, res) {
 }
 
 // function SaveObject(todo) {
-function SaveObjectImplementation(todo) {
+async function SaveObjectImplementation(todo) {
 
-    firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
+    await firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
         todo.status, todo.groupId, todo.priority, todo.address, todo.repeat);
     return "Saved";
 }
 
-function UpdateObjectImplementation(todo) {
+async function UpdateObjectImplementation(todo) {
     //Implementation code here
-    firebaseUtil.updateObjectDAO(todo);
+    await firebaseUtil.updateObjectDAO(todo);
     return "updated";
 }
 
@@ -35,7 +46,7 @@ async function DeleteObjectImplementation(todo) {
     console.log('executed2');
     const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
     console.log('executed3');
-    var result = await firebasePromise
+    var result = await firebasePromise;
     console.log('executed4');
     return result;
 }
@@ -96,13 +107,15 @@ function deleteTodo(todo) {
 }
 
 
-function fetchTodo(id) {
+ function fetchTodo(id) {
     //Implementation code here
 
     if (id === null || id === "") {
         throw new TypeError('Illegal Argument Exception');
     }
-    var _todo = FetchObjectImplementation(id);
+
+    var _todo =  FetchObjectImplementation(id);
+
     if (_todo == null)
         return null;
     else
@@ -115,9 +128,6 @@ function DeleteObject(todo) {
     //Implementation code here
     return {};
 }
-
-
-
 
 
 function fetchAllTodos(userId, res) {
@@ -297,7 +307,7 @@ module.exports = {
     updateTodo: updateTodo,
     deleteTodo: deleteTodo,
     SaveObjectImplementation: SaveObjectImplementation,
-    UpdateObjectImplementation:UpdateObjectImplementation,
+    UpdateObjectImplementation: UpdateObjectImplementation,
     fetchTodo: fetchTodo,
     FetchObjectImplementation: FetchObjectImplementation,
     DeleteObject: DeleteObject,
