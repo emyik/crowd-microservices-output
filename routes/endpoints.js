@@ -165,12 +165,42 @@ router.post('/createGroup', function (req, res) {
 });
 
 
-router.get('/getAllTodoOfaGroup', function (req, res) {
-    res.send(service.getAllTodoOfaGroup(req.query.groupId, req.query.userId));
-});
-
 router.post('/getAllTodoOfaGroup', function (req, res) {
     res.send(service.getAllTodoOfaGroup(req.body.groupId, req.body.userId));
+});
+
+router.get('/getAllTodoOfaGroup', async (req, res,next) => {
+
+
+    try {
+        const todoList = await service.getAllTodoOfaGroup(req.query.groupId, req.query.userId);
+        res.json(todoList);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodoList = [{
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            }];
+            res.send(nullTodoList);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+    //res.send(service.getAllTodoOfaGroup(req.body.groupId, req.body.userId));
 });
 
 
