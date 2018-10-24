@@ -37,36 +37,40 @@ async function FetchObjectImplementation(objectId) {
 
 function FetchAllObjectsImplementation(userId, res) {
     if (testEnvironment) {
-        const todoList =[ {
-            title: 'commit code',
-            description: 'be sure to commit unit tests',
-            dueDate: '02/25/2018',
-            dataStoreId: "schoolworkds",
-            userId: 'eaghayi',
-            id: '1',
-            status: 'in-progress',
-            groupId: 'school',
-            createdTime: '1:30pm',
-            createdDate: '02/25/2018',
-            priority: 'low',
-            address: '',
-            repeat: ''}, {
-            title: 'push code',
-            description: 'be sure to push unit tests',
-            dueDate: '02/25/2018',
-            dataStoreId: "schoolworkds",
-            userId: 'eaghayi',
-            id: '2',
-            status: 'in-progress',
-            groupId: 'school',
-            createdTime: '1:30pm',
-            createdDate: '02/25/2018',
-            priority: 'low',
-            address: '',
-            repeat: ''}];
+        if(userId ==='eaghayi'){
+            const todoList =[ {
+                title: 'commit code',
+                description: 'be sure to commit unit tests',
+                dueDate: '02/25/2018',
+                dataStoreId: "schoolworkds",
+                userId: 'eaghayi',
+                id: '1',
+                status: 'in-progress',
+                groupId: 'school',
+                createdTime: '1:30pm',
+                createdDate: '02/25/2018',
+                priority: 'low',
+                address: '',
+                repeat: ''}, {
+                title: 'push code',
+                description: 'be sure to push unit tests',
+                dueDate: '02/25/2018',
+                dataStoreId: "schoolworkds",
+                userId: 'eaghayi',
+                id: '2',
+                status: 'in-progress',
+                groupId: 'school',
+                createdTime: '1:30pm',
+                createdDate: '02/25/2018',
+                priority: 'low',
+                address: '',
+                repeat: ''}];
 
 
-        return todoList;
+            return todoList;
+        }else {
+            return [];
+        }
 
     } else {
         const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
