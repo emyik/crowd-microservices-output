@@ -204,8 +204,36 @@ router.get('/getAllTodoOfaGroup', async (req, res,next) => {
 });
 
 
-router.get('/updatePriorityOfaTodo', function (req, res) {
-    res.send(service.updatePriorityOfaTodo(req.query.id, req.query.priority));
+router.get('/updatePriorityOfaTodo', async (req, res,next) => {
+    try {
+        const todoList = await service.updatePriorityOfaTodo(req.query.id, req.query.priority);
+        res.json(todoList);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodo = {
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            };
+            res.send(nullTodo);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+    // res.send(service.updatePriorityOfaTodo(req.query.id, req.query.priority));
 });
 
 router.post('/updatePriorityOfaTodo', function (req, res) {

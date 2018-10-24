@@ -4,31 +4,43 @@
 var firebaseUtil = require('../util/firebaseUtil');
 var testEnvironment = true;
 
-async function FetchObjectImplementation(objectId) {
+ function FetchObjectImplementation(objectId) {
 
     if (testEnvironment) {
-      const todo = {
-          title: 'commit code',
-          description: 'be sure to commit unit tests',
-          dueDate: '02/25/2018',
-          dataStoreId: "schoolworkds",
-          userId: 'eaghayi',
-          id: '234',
-          status: 'in-progress',
-          groupId: 'school',
-          createdTime: '1:30pm',
-          createdDate: '02/25/2018',
-          priority: 'low',
-          address: '',
-          repeat: ''
-      };
+
+        if (objectId == 234) {
+            const todo = {
+                title: 'commit code',
+                description: 'be sure to commit unit tests',
+                dueDate: '02/25/2018',
+                dataStoreId: "schoolworkds",
+                userId: 'eaghayi',
+                id: '234',
+                status: 'in-progress',
+                groupId: 'school',
+                createdTime: '1:30pm',
+                createdDate: '02/25/2018',
+                priority: 1,
+                address: '',
+                repeat: ''
+            };
 
 
-        return todo;
+            return todo;
+        }
+        else {
+            //var resp;
+            // Promise.resolve(null).then(function(value) {
+            //     console.log(value); // "Success"
+            //     resp= value;
+            // });
+            return null;
+
+        }
 
     } else {
 
-        const todo = await firebaseUtil.fetchObjectDao(objectId);
+        const todo =  firebaseUtil.fetchObjectDao(objectId);
         if (todo === undefined || todo === {}) {
             return null;
         } else return todo;
@@ -37,8 +49,8 @@ async function FetchObjectImplementation(objectId) {
 
 function FetchAllObjectsImplementation(userId, res) {
     if (testEnvironment) {
-        if(userId ==='eaghayi'){
-            const todoList =[ {
+        if (userId === 'eaghayi') {
+            const todoList = [{
                 title: 'commit code',
                 description: 'be sure to commit unit tests',
                 dueDate: '02/25/2018',
@@ -49,9 +61,10 @@ function FetchAllObjectsImplementation(userId, res) {
                 groupId: 'school',
                 createdTime: '1:30pm',
                 createdDate: '02/25/2018',
-                priority: 'low',
+                priority: 3,
                 address: '',
-                repeat: ''}, {
+                repeat: ''
+            }, {
                 title: 'push code',
                 description: 'be sure to push unit tests',
                 dueDate: '02/25/2018',
@@ -62,13 +75,14 @@ function FetchAllObjectsImplementation(userId, res) {
                 groupId: 'school',
                 createdTime: '1:30pm',
                 createdDate: '02/25/2018',
-                priority: 'low',
+                priority: 3,
                 address: '',
-                repeat: ''}];
+                repeat: ''
+            }];
 
 
             return todoList;
-        }else {
+        } else {
             return [];
         }
 
@@ -90,9 +104,27 @@ async function SaveObjectImplementation(todo) {
 }
 
 async function UpdateObjectImplementation(todo) {
-    //Implementation code here
-    await firebaseUtil.updateObjectDAO(todo);
-    return "updated";
+    if (testEnvironment) {
+        // const todo = {
+        //     title: todo.title,
+        //     description: todo.description,
+        //     dueDate: todo.dueDate,
+        //     dataStoreId: "schoolworkds",
+        //     userId: 'eaghayi',
+        //     id: todo.id,
+        //     status: todo.status,
+        //     groupId: todo.groupId,
+        //     createdTime: '1:30pm',
+        //     createdDate: '02/25/2018',
+        //     priority: todo.priority,
+        //     address: '',
+        //     repeat: ''
+        // };
+        return todo;
+    }else {
+        await firebaseUtil.updateObjectDAO(todo);
+        return "updated";
+    }
 }
 
 async function DeleteObjectImplementation(todo) {
@@ -160,14 +192,14 @@ function deleteTodo(todo) {
 }
 
 
- function fetchTodo(id) {
+function fetchTodo(id) {
     //Implementation code here
 
     if (id === null || id === "") {
         throw new TypeError('Illegal Argument Exception');
     }
 
-    var _todo =  FetchObjectImplementation(id);
+    var _todo = FetchObjectImplementation(id);
 
     if (_todo == null)
         return null;
@@ -268,7 +300,7 @@ function updatePriorityOfaTodo(id, priority) {
     if (fetchTodo(id) === null) {
         return false;
     }
-    var newTodo = fetchTodo(id).priority;
+    var newTodo = fetchTodo(id);
     newTodo.priority = priority;
     var _res = UpdateObjectImplementation(newTodo);
     if (_res === null) {
