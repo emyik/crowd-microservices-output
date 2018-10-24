@@ -241,8 +241,38 @@ router.post('/updatePriorityOfaTodo', function (req, res) {
 });
 
 
-router.get('/fetchTodosBasedOnStatus', function (req, res) {
-    res.send(service.fetchTodosBasedOnStatus(req.query.userId, req.query.status));
+router.get('/fetchTodosBasedOnStatus', async (req, res,next) => {
+
+
+    try {
+        const todoList = await service.fetchTodosBasedOnStatus(req.query.userId, req.query.status);
+        res.json(todoList);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodoList = [{
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            }];
+            res.send(nullTodoList);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+    // res.send(service.fetchTodosBasedOnStatus(req.query.userId, req.query.status));
 });
 
 router.post('/fetchTodosBasedOnStatus', function (req, res) {
