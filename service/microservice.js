@@ -96,12 +96,14 @@ function FetchAllObjectsImplementation(userId, res) {
 }
 
 // function SaveObject(todo) {
+
+
 async function SaveObjectImplementation(todo) {
     if (testEnvironment) {
 
         return todo;
     } else {
-        await firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
+        await  firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
             todo.status, todo.groupId, todo.priority, todo.address, todo.repeat);
         return "Saved";
     }
@@ -135,7 +137,7 @@ async function DeleteObjectImplementation(todo) {
     console.log('executed2');
     const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
     console.log('executed3');
-    var result = await firebasePromise;
+    var result = await  firebasePromise;
     console.log('executed4');
     return result;
 }
@@ -281,9 +283,7 @@ function getAllTodoOfaGroup(groupId, userId) {
     var allTodos = fetchAllTodos(userId);
     if (allTodos != null && allTodos.length > 0) {
         for (var i = 0; i < allTodos.length; i++) {
-
-
-            {
+            if (allTodos[i].groupId == groupId) {
                 result.push(allTodos[i]);
             }
         }
@@ -291,6 +291,25 @@ function getAllTodoOfaGroup(groupId, userId) {
     return result;
 
 }
+
+// { //Implementation code here
+//     if (groupId == null || userId == null) {
+//         throw new TypeError('IllegalArgumentException');
+//     }
+//     if (groupId === '' || userId === '') {
+//         throw new TypeError('IllegalArgumentException');
+//     }
+//     var result = [];
+//     var allTodos = fetchAllTodos(userId);
+//     if (allTodos != null && allTodos.length > 0) {
+//         for (var i = 0; i < allTodos.length; i++) {
+//             if (allTodos[i].groupId == groupId) {
+//                 result.push(allTodos[i]);
+//             }
+//         }
+//     }
+//     return result; \n
+// }
 
 
 function updatePriorityOfaTodo(id, priority) {
