@@ -280,8 +280,37 @@ router.post('/fetchTodosBasedOnStatus', function (req, res) {
 });
 
 
-router.get('/markTodoAsDone', function (req, res) {
-    res.send(service.markTodoAsDone(req.query.id));
+router.get('/markTodoAsDone', async (req, res,next) => {
+    try {
+        const bool = await service.markTodoAsDone(req.query.id);
+        res.json(bool);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodo = {
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            };
+            res.send(nullTodo);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+
+    //res.send(service.markTodoAsDone(req.query.id));
 });
 
 router.post('/markTodoAsDone', function (req, res) {
@@ -289,8 +318,38 @@ router.post('/markTodoAsDone', function (req, res) {
 });
 
 
-router.get('/remindOnDueDate', function (req, res) {
-    res.send(service.remindOnDueDate(req.query.userId, req.query.dueDate));
+router.get('/remindOnDueDate',  async (req, res,next) => {
+
+
+    try {
+        const todoList = await service.remindOnDueDate(req.query.userId, req.query.dueDate);
+        res.json(todoList);
+    } catch (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodoList = [{
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            }];
+            res.send(nullTodoList);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+  //  res.send(service.remindOnDueDate(req.query.userId, req.query.dueDate));
 });
 
 router.post('/remindOnDueDate', function (req, res) {

@@ -4,7 +4,7 @@
 var firebaseUtil = require('../util/firebaseUtil');
 var testEnvironment = true;
 
- function FetchObjectImplementation(objectId) {
+function FetchObjectImplementation(objectId) {
 
     if (testEnvironment) {
 
@@ -40,7 +40,7 @@ var testEnvironment = true;
 
     } else {
 
-        const todo =  firebaseUtil.fetchObjectDao(objectId);
+        const todo = firebaseUtil.fetchObjectDao(objectId);
         if (todo === undefined || todo === {}) {
             return null;
         } else return todo;
@@ -97,10 +97,14 @@ function FetchAllObjectsImplementation(userId, res) {
 
 // function SaveObject(todo) {
 async function SaveObjectImplementation(todo) {
+    if (testEnvironment) {
 
-    await firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
-        todo.status, todo.groupId, todo.priority, todo.address, todo.repeat);
-    return "Saved";
+        return todo;
+    } else {
+        await firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
+            todo.status, todo.groupId, todo.priority, todo.address, todo.repeat);
+        return "Saved";
+    }
 }
 
 async function UpdateObjectImplementation(todo) {
@@ -121,7 +125,7 @@ async function UpdateObjectImplementation(todo) {
         //     repeat: ''
         // };
         return todo;
-    }else {
+    } else {
         await firebaseUtil.updateObjectDAO(todo);
         return "updated";
     }
@@ -277,7 +281,9 @@ function getAllTodoOfaGroup(groupId, userId) {
     var allTodos = fetchAllTodos(userId);
     if (allTodos != null && allTodos.length > 0) {
         for (var i = 0; i < allTodos.length; i++) {
-            if (allTodos[i].groupId == groupId) {
+
+
+            {
                 result.push(allTodos[i]);
             }
         }
