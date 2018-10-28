@@ -110,13 +110,60 @@ router.post('/updateTodo', function (req, res) {
 });
 
 
-router.get('/deleteTodo', function (req, res) {
-    res.send(service.deleteTodo(req.query.todo));
+router.get('/deleteTodo', async (req, res, next) => {
+
+    try {
+        const todoParam = {
+            title: req.query.title,
+            description: req.query.description,
+            dueDate: req.query.dueDate,
+            dataStoreId: req.query.dataStoreId,
+            userId: req.query.userId,
+            id: req.query.id,
+            status: req.query.status,
+            groupId: req.query.groupId,
+            createdTime:req.query.createdTime,
+            createdDate: req.query.createdDate,
+            priority: req.query.priority,
+            address: req.query.address,
+            dataStoreId:'eaghayi-school',
+            repeat: req.query.repeat
+        };
+        const todo = await service.deleteTodo(todoParam);
+        res.json(todo);
+    } catch
+        (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const todo = {
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            };
+            res.send(todo);
+        } else {
+
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+
+
+   // res.send(service.deleteTodo(req.query.todo));
 });
 
 router.post('/deleteTodo', async function (req, res) {
-        const deleted = await
-            service.deleteTodo(req.body.todo);
+        const deleted = await service.deleteTodo(req.body.todo);
         res.send(deleted);
     }
 )

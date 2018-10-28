@@ -111,21 +111,7 @@ async function SaveObjectImplementation(todo) {
 
 async function UpdateObjectImplementation(todo) {
     if (testEnvironment) {
-        // const todo = {
-        //     title: todo.title,
-        //     description: todo.description,
-        //     dueDate: todo.dueDate,
-        //     dataStoreId: "schoolworkds",
-        //     userId: 'eaghayi',
-        //     id: todo.id,
-        //     status: todo.status,
-        //     groupId: todo.groupId,
-        //     createdTime: '1:30pm',
-        //     createdDate: '02/25/2018',
-        //     priority: todo.priority,
-        //     address: '',
-        //     repeat: ''
-        // };
+
         return todo;
     } else {
         await firebaseUtil.updateObjectDAO(todo);
@@ -134,12 +120,16 @@ async function UpdateObjectImplementation(todo) {
 }
 
 async function DeleteObjectImplementation(todo) {
-    console.log('executed2');
-    const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
-    console.log('executed3');
-    var result = await  firebasePromise;
-    console.log('executed4');
-    return result;
+    if (testEnvironment) {
+
+        return todo;
+    } else {
+        const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
+
+        var result = await  firebasePromise;
+
+        return result;
+    }
 }
 
 function addTodo(todo) {
