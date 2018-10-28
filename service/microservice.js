@@ -145,7 +145,7 @@ async function DeleteObjectImplementation(todo) {
 function addTodo(todo) {
 
 //Implementation code here
-    if (todo.id === null || todo.id === "" || todo.title === null || todo.tile === "" || todo.userId === null || todo.userId === "" ||
+    if (todo.id === null || todo.id === "" || todo.title === null || todo.title === "" || todo.userId === null || todo.userId === "" ||
         todo.dataStoreId === null || todo.dataStoreId === " ")
         throw TypeError('Illegal Argument Exception');
     else
