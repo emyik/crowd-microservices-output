@@ -17,7 +17,7 @@ router.get('/addTodo', async (req, res, next) => {
             id: req.query.id,
             status: req.query.status,
             groupId: req.query.groupId,
-            createdTime:req.query.createdTime,
+            createdTime: req.query.createdTime,
             createdDate: req.query.createdDate,
             priority: req.query.priority,
             address: req.query.address,
@@ -51,7 +51,7 @@ router.get('/addTodo', async (req, res, next) => {
         }
     }
 
-   // res.send(service.addTodo(req.body.todo));
+    // res.send(service.addTodo(req.body.todo));
 });
 
 
@@ -66,11 +66,11 @@ router.get('/updateTodo', async (req, res, next) => {
             id: req.query.id,
             status: req.query.status,
             groupId: req.query.groupId,
-            createdTime:req.query.createdTime,
+            createdTime: req.query.createdTime,
             createdDate: req.query.createdDate,
             priority: req.query.priority,
             address: req.query.address,
-            dataStoreId:'eaghayi-school',
+            dataStoreId: 'eaghayi-school',
             repeat: req.query.repeat
         };
         const todo = await service.updateTodo(todoParam);
@@ -122,11 +122,11 @@ router.get('/deleteTodo', async (req, res, next) => {
             id: req.query.id,
             status: req.query.status,
             groupId: req.query.groupId,
-            createdTime:req.query.createdTime,
+            createdTime: req.query.createdTime,
             createdDate: req.query.createdDate,
             priority: req.query.priority,
             address: req.query.address,
-            dataStoreId:'eaghayi-school',
+            dataStoreId: 'eaghayi-school',
             repeat: req.query.repeat
         };
         const todo = await service.deleteTodo(todoParam);
@@ -159,7 +159,7 @@ router.get('/deleteTodo', async (req, res, next) => {
     }
 
 
-   // res.send(service.deleteTodo(req.query.todo));
+    // res.send(service.deleteTodo(req.query.todo));
 });
 
 router.post('/deleteTodo', async function (req, res) {
@@ -300,9 +300,41 @@ router.post('/FetchAllObjects', function (req, res) {
 });
 
 
-router.get('/createGroup', function (req, res) {
-    res.send(service.createGroup(req.query.todoArray, req.query.groupId));
-});
+router.get('/createGroup', async (req, res, next) => {
+
+
+        try {
+            const todoList = await service.createGroup(req.query.todoArray, req.query.groupId);
+            res.json(todoList);
+        } catch
+            (e) {
+            //this will eventually be handled by your error handling middleware
+            if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+                const nullTodoList = [{
+                    title: 'null',
+                    description: 'null',
+                    dueDate: 'null',
+                    dataStoreId: "null",
+                    userId: 'null',
+                    id: 'null',
+                    status: 'null',
+                    groupId: 'null',
+                    createdTime: 'null',
+                    createdDate: 'null',
+                    priority: 'null',
+                    address: 'null',
+                    repeat: 'null'
+                }];
+                res.send(nullTodoList);
+            } else {
+
+                console.log('exception: ', e.message);
+                next(e)
+            }
+            // res.send(service.createGroup(req.query.todoArray, req.query.groupId));
+        }
+    }
+);
 
 router.post('/createGroup', function (req, res) {
     res.send(service.createGroup(req.body.todoArray, req.body.groupId));
@@ -470,39 +502,38 @@ router.post('/markTodoAsDone', function (req, res) {
 });
 
 
-router.get('/remindOnDueDate', async(req, res, next) => {
+router.get('/remindOnDueDate', async (req, res, next) => {
 
 
     try {
         const todoList = await service.remindOnDueDate(req.query.userId, req.query.dueDate);
-res.json(todoList);
-} catch
-(e)
-{
-    //this will eventually be handled by your error handling middleware
-    if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
-        const nullTodoList = [{
-            title: 'null',
-            description: 'null',
-            dueDate: 'null',
-            dataStoreId: "null",
-            userId: 'null',
-            id: 'null',
-            status: 'null',
-            groupId: 'null',
-            createdTime: 'null',
-            createdDate: 'null',
-            priority: 'null',
-            address: 'null',
-            repeat: 'null'
-        }];
-        res.send(nullTodoList);
-    } else {
+        res.json(todoList);
+    } catch
+        (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodoList = [{
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            }];
+            res.send(nullTodoList);
+        } else {
 
-        console.log('exception: ', e.message);
-        next(e);
+            console.log('exception: ', e.message);
+            next(e);
+        }
     }
-}
 //  res.send(service.remindOnDueDate(req.query.userId, req.query.dueDate));
 })
 ;
@@ -512,37 +543,36 @@ router.post('/remindOnDueDate', function (req, res) {
 });
 
 
-router.get('/markTodoAsArchived', async(req, res, next) => {
+router.get('/markTodoAsArchived', async (req, res, next) => {
     try {
         const bool = await service.markTodoAsArchived(req.query.id);
-res.json(bool);
-} catch
-(e)
-{
-    //this will eventually be handled by your error handling middleware
-    if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
-        const nullTodo = {
-            title: 'null',
-            description: 'null',
-            dueDate: 'null',
-            dataStoreId: "null",
-            userId: 'null',
-            id: 'null',
-            status: 'null',
-            groupId: 'null',
-            createdTime: 'null',
-            createdDate: 'null',
-            priority: 'null',
-            address: 'null',
-            repeat: 'null'
-        };
-        res.send(nullTodo);
-    } else {
+        res.json(bool);
+    } catch
+        (e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'Illegal Argument Exception') {
+            const nullTodo = {
+                title: 'null',
+                description: 'null',
+                dueDate: 'null',
+                dataStoreId: "null",
+                userId: 'null',
+                id: 'null',
+                status: 'null',
+                groupId: 'null',
+                createdTime: 'null',
+                createdDate: 'null',
+                priority: 'null',
+                address: 'null',
+                repeat: 'null'
+            };
+            res.send(nullTodo);
+        } else {
 
-        console.log('exception: ', e.message);
-        next(e);
+            console.log('exception: ', e.message);
+            next(e);
+        }
     }
-}
 //res.send(service.markTodoAsArchived(req.query.id));
 })
 ;
