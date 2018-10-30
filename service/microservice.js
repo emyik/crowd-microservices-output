@@ -12,12 +12,12 @@ function FetchObjectImplementation(objectId) {
             const todo = {
                 title: 'commit code',
                 description: 'be sure to commit unit tests',
-                dueDate: '02/25/2018',
+                dueDate: '02-25-2018',
                 dataStoreId: "schoolworkds",
                 userId: 'eaghayi',
                 id: '234',
                 status: 'in-progress',
-                groupId: 'school',
+                groupId: 'work',
                 createdTime: '1:30pm',
                 createdDate: '02/25/2018',
                 priority: 1,
@@ -246,15 +246,31 @@ function fetchAllTodosFromDB(userId, res) {
 function createGroup(todoArray, groupId) {
     //Implementation code here
     //Implementation code here
-    if (groupId === null || groupId === '') {
+    if (groupId === null || groupId === '' || todoArray === '') {
         throw new TypeError('IllegalArgumentException');
     }
-    if (todoArray.contains(groupId)) {
-        throw new TypeError('DuplicateGroupId');
+    var todoList = FetchAllObjectsImplementation("eaghayi");
+
+
+    for (var i = 0; i < todoList.length; i++) {
+        if (todoList[i].groupId == groupId)
+            return false;
+    }
+    for (var i = 0; i < JSON.parse(todoArray).todoArray.length; i++) {
+
+        var todoTemp = FetchObjectImplementation(JSON.parse(todoArray).todoArray[i].id);
+        if (todoTemp == null) {
+            return false;
+        }
+        else {
+            todoTemp.groupId = groupId;
+            UpdateObjectImplementation(todoTemp);
+        }
+
     }
 
 
-    return {};
+    return true;
 
 
 }
@@ -339,8 +355,9 @@ function fetchTodosBasedOnStatus(userId, status) {
                 throw new TypeError("Illegal Argument Exception");
             }
             else {
-
-                result.push(allTodos[i]);
+                if (allTodos[i].status == status) {
+                    result.push(allTodos[i]);
+                }
             }
         }
     }
@@ -373,8 +390,8 @@ function remindOnDueDate(userId, dueDate) {
     if (todo != null) {
         for (var i = 0; i < todo.length; i++) {
             var tempTodo = todo[i];
-            if (tempTodo.dueDate = dueDate) {
-                listOfDue.append(tempTodo);
+            if (tempTodo.dueDate == dueDate) {
+                listOfDue.push(tempTodo);
             }
         }
     }
