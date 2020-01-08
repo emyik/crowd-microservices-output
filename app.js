@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 // add route of endpoints
-var endpoints = require('./routes/endpoints');
+var endpoints = require('./routes/todo_endpoints');
 
 var firebase = require('./util/firebaseUtil')
 

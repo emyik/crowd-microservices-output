@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var service = require('../service/microservice');
+var service = require('../service/todo_microservice');
 var testEnvironment = true;
 router.post('/addTodo', function (req, res) {
     res.send(service.addTodo(req.body.todo));
