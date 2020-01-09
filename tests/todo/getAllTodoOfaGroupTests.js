@@ -4,20 +4,20 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints/getAllTodoOfaGroup', function () {
+describe('test /todo_endpoints/getAllTodoOfaGroup', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?userId=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?userId=');
         assert.equal(result.data[0].id,'null');
-        const result2 = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?groupId=');
+        const result2 = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?groupId=');
         assert.equal(result2.data[0].id,'null');
 
     });
 
     it('fetch all todo of a group', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'school'}});
-        // const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?userId=eaghayi');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'school'}});
+        // const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?userId=eaghayi');
         assert.equal(result.data[0].id,'1');
         assert.equal(result.data[1].id,'2');
         assert.equal(result.data[0].description,'be sure to commit unit tests');
@@ -28,7 +28,7 @@ describe('test /endpoints/getAllTodoOfaGroup', function () {
 
     });
     it('it returns empty array if it can not find any thing', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'work'}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'work'}});
         assert.equal(result.data,'');
 
 

@@ -6,13 +6,13 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints/createGroup', function () {
+describe('test /todo_endpoints/createGroup', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/createGroup?todoArray=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/createGroup?todoArray=');
         assert.equal(result.data[0].id,'null');
-        const result2 = await axios.get('http://localhost:3001/endpoints/createGroup?groupId=');
+        const result2 = await axios.get('http://localhost:3001/todo_endpoints/createGroup?groupId=');
         assert.equal(result2.data[0].id,'null');
 
     });
@@ -64,8 +64,8 @@ describe('test /endpoints/createGroup', function () {
 
             ]
         };
-        const result2 = await axios.get('http://localhost:3001/endpoints/createGroup', {params:{ todoArray:arryOfTodo, groupId:'home'}});
-        // const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?userId=eaghayi');
+        const result2 = await axios.get('http://localhost:3001/todo_endpoints/createGroup', {params:{ todoArray:arryOfTodo, groupId:'home'}});
+        // const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?userId=eaghayi');
         assert.equal(result2.data,true); // since all todos are  in DB, it should return true
 
 
@@ -121,8 +121,8 @@ describe('test /endpoints/createGroup', function () {
                 }
             ]
         };
-        const result = await axios.get('http://localhost:3001/endpoints/createGroup', {params:{ todoArray:arryOfTodo2, groupId:'school'}});
-        // const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?userId=eaghayi');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/createGroup', {params:{ todoArray:arryOfTodo2, groupId:'school'}});
+        // const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?userId=eaghayi');
         assert.equal(result.data,false); // since all todos are not in DB, it should return flase
 
 
@@ -151,8 +151,8 @@ describe('test /endpoints/createGroup', function () {
 
             ]
         };
-        const result = await axios.get('http://localhost:3001/endpoints/createGroup', {params:{ todoArray:arryOfTodo, groupId:'school'}});
-        // const result = await axios.get('http://localhost:3001/endpoints/getAllTodoOfaGroup?userId=eaghayi');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/createGroup', {params:{ todoArray:arryOfTodo, groupId:'school'}});
+        // const result = await axios.get('http://localhost:3001/todo_endpoints/getAllTodoOfaGroup?userId=eaghayi');
         assert.equal(result.data,false);
 
 

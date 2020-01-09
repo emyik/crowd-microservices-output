@@ -6,19 +6,19 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints/fetchTodosBasedOnStatus', function () {
+describe('test /todo_endpoints/fetchTodosBasedOnStatus', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/fetchTodosBasedOnStatus?userId=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchTodosBasedOnStatus?userId=');
         assert.equal(result.data[0].id,'null');
-        const result2 = await axios.get('http://localhost:3001/endpoints/fetchTodosBasedOnStatus?status=');
+        const result2 = await axios.get('http://localhost:3001/todo_endpoints/fetchTodosBasedOnStatus?status=');
         assert.equal(result2.data[0].id,'null');
 
     });
 // it fails because it returns all todos, checking for status is implemented in wrong way
     it('fetch all todo of a specific status', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'1'}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'1'}});
       // console.log(result.data);
         assert.equal(result.data[0].id,'1');
         assert.equal(result.data.length,1);
@@ -29,7 +29,7 @@ describe('test /endpoints/fetchTodosBasedOnStatus', function () {
     });
     // it fails because it returns all todos, checking for status is implemented in wrong way
     it('it returns empty array if it can not find any thing', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'4'}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'4'}});
         assert.equal(result.data,'');
 
 

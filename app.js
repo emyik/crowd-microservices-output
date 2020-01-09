@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-// add route of endpoints
-var endpoints = require('./routes/todo_endpoints');
+// add route of todo_endpoints
+var todo_endpoints = require('./routes/todo_endpoints');
+var shopping_endpoints = require('./routes/shopping_endpoints');
 
 var firebase = require('./util/firebaseUtil')
 
@@ -29,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/endpoints', endpoints);
+app.use('/todo_endpoints', todo_endpoints);
+app.use('/shopping_endpoints', shopping_endpoints);
 // app.use('/datastore', datastore);
 
 

@@ -4,17 +4,17 @@ var assert = require('assert');
 
 
 
-describe('test /todo_endpoints/fetchAllTodos', function () {
+describe('test /shopping_endpoints/searchItems', function () {
 
 
-      it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchAllTodos?userId=');
+    it('illegal argument', async function() {
+        const result = await axios.get('http://localhost:3001/shopping_endpoints/searchItems?userId=');
         assert.equal(result.data[0].id,'null');
 
     });
 
     it('fetch all todo', async function() {
-        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchAllTodos?userId=eaghayi');
+        const result = await axios.get('http://localhost:3001/shopping_endpoints/searchItems?userId=eaghayi');
         assert.equal(result.data[0].id,'1');
         assert.equal(result.data[1].id,'2');
         assert.equal(result.data[0].description,'be sure to commit unit tests');
@@ -25,7 +25,7 @@ describe('test /todo_endpoints/fetchAllTodos', function () {
 
     });
     it('it returns empty array if it can not find any thing', async function() {
-        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchAllTodos?userId=tlatoza');
+        const result = await axios.get('http://localhost:3001/shopping_endpoints/searchItems?userId=tlatoza');
         assert.equal(result.data,'');
 
 

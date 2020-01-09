@@ -3,18 +3,18 @@ var axios = require('axios');
 var assert = require('assert');
 
 
-describe('test /endpoints/updateTodo', function () {
+describe('test /todo_endpoints/updateTodo', function () {
 
 
     it('illegal argument', async function () {
         const result = await
-        axios.get('http://localhost:3001/endpoints/updateTodo', {params: {id: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/updateTodo', {params: {id: ''}});
         assert.equal(result.data.id, 'null');
         const result2 = await
-        axios.get('http://localhost:3001/endpoints/updateTodo', {params: {id: '', title: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/updateTodo', {params: {id: '', title: ''}});
         assert.equal(result2.data.title, 'null');
         const result3 = await
-        axios.get('http://localhost:3001/endpoints/updateTodo', {params: {id: '', title: '', userId: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/updateTodo', {params: {id: '', title: '', userId: ''}});
         assert.equal(result3.data.userId, 'null');
 
 
@@ -24,7 +24,7 @@ describe('test /endpoints/updateTodo', function () {
     ;
 
     it('update todo', async function () {
-        const result = await  axios.get('http://localhost:3001/endpoints/updateTodo',
+        const result = await  axios.get('http://localhost:3001/todo_endpoints/updateTodo',
             {
                 params: {
                     id: '2',
@@ -46,7 +46,7 @@ describe('test /endpoints/updateTodo', function () {
     }) ;
 
     it('check checkDateFormat helper method ', async function () {
-        const result = await  axios.get('http://localhost:3001/endpoints/updateTodo',
+        const result = await  axios.get('http://localhost:3001/todo_endpoints/updateTodo',
             {
                 params: {
                     id: '2',

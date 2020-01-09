@@ -3,18 +3,18 @@ var axios = require('axios');
 var assert = require('assert');
 
 
-describe('test /endpoints/deleteTodo', function () {
+describe('test /todo_endpoints/deleteTodo', function () {
 
 
     it('illegal argument', async function () {
         const result = await
-        axios.get('http://localhost:3001/endpoints/deleteTodo', {params: {id: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/deleteTodo', {params: {id: ''}});
         assert.equal(result.data.id, 'null');
         const result2 = await
-        axios.get('http://localhost:3001/endpoints/deleteTodo', {params: {id: '', title: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/deleteTodo', {params: {id: '', title: ''}});
         assert.equal(result2.data.title, 'null');
         const result3 = await
-        axios.get('http://localhost:3001/endpoints/deleteTodo', {params: {id: '', title: '', userId: ''}});
+        axios.get('http://localhost:3001/todo_endpoints/deleteTodo', {params: {id: '', title: '', userId: ''}});
         assert.equal(result3.data.userId, 'null');
 
 
@@ -24,7 +24,7 @@ describe('test /endpoints/deleteTodo', function () {
     ;
 
     it('delete todo', async function () {
-        const result = await  axios.get('http://localhost:3001/endpoints/deleteTodo',
+        const result = await  axios.get('http://localhost:3001/todo_endpoints/deleteTodo',
             {
                 params: {
                     id: '2',

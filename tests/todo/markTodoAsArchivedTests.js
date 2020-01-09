@@ -4,18 +4,18 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints/markTodoAsArchived', function () {
+describe('test /todo_endpoints/markTodoAsArchived', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsArchived?id=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsArchived?id=');
         assert.equal(result.data.id,'null');
 
 
     });
 
     it('could not find object with the id', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsArchived?id=22');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsArchived?id=22');
         assert.equal(result.data, false);
 
 
@@ -23,7 +23,7 @@ describe('test /endpoints/markTodoAsArchived', function () {
     });
 
     it('update status of a todo', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsArchived', {params:{ id:234}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsArchived', {params:{ id:234}});
         assert.equal(result.data, true);
 
 

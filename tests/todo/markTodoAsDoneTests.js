@@ -4,18 +4,18 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints//markTodoAsDone', function () {
+describe('test /todo_endpoints//markTodoAsDone', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsDone?id=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsDone?id=');
         assert.equal(result.data.id,'null');
 
 
     });
 
     it('could not find object with the id', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsDone?id=22');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsDone?id=22');
         assert.equal(result.data, false);
 
 
@@ -23,7 +23,7 @@ describe('test /endpoints//markTodoAsDone', function () {
     });
 
     it('update priority of a todo', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/markTodoAsDone', {params:{ id:234}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/markTodoAsDone', {params:{ id:234}});
         assert.equal(result.data.id,'234');
         assert.equal(result.data.description,'be sure to commit unit tests');
         assert.equal(result.data.title,'commit code');

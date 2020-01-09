@@ -13,19 +13,19 @@ var assert = require('assert');
 
 
 
-describe('test /endpoints/remindOnDueDate', function () {
+describe('test /todo_endpoints/remindOnDueDate', function () {
 
 
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/remindOnDueDate?userId=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/remindOnDueDate?userId=');
         assert.equal(result.data[0].id,'null');
-        const result2 = await axios.get('http://localhost:3001/endpoints/remindOnDueDate?dueDate=');
+        const result2 = await axios.get('http://localhost:3001/todo_endpoints/remindOnDueDate?dueDate=');
         assert.equal(result2.data[0].id,'null');
 
     });
 // it fails because it returns all todos, checking for status is implemented in wrong way
     it('fetch all todo of a specific duedate', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'02/25/2018'}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'02/25/2018'}});
         assert.equal(result.data[0].id,'2');
         assert.equal(result.data[0].dueDate,'02/25/2018');
 
@@ -34,7 +34,7 @@ describe('test /endpoints/remindOnDueDate', function () {
     });
     // it fails because it returns all todos, checking for status is implemented in wrong way
     it('it returns empty array if it can not find any thing', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'06/25/2018'}});
+        const result = await axios.get('http://localhost:3001/todo_endpoints/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'06/25/2018'}});
         assert.equal(result.data,'');
 
 

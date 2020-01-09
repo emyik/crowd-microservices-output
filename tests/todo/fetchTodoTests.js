@@ -4,12 +4,12 @@ var express = require('express'); // (npm install --save express)
 var axios = require('axios');
 var assert = require('assert');
 
-describe('test /endpoints/fetchTodo', function () {
+describe('test /todo_endpoints/fetchTodo', function () {
 
 
     // it('check input', function (done) {
     //
-    //         var result = axios.get('http://localhost:3001/endpoints/fetchTodo?id=').then(response => {
+    //         var result = axios.get('http://localhost:3001/todo_endpoints/fetchTodo?id=').then(response => {
     //             console.log(response.data);
     //             assert.equal('21',response.data);
     //             done();
@@ -27,13 +27,13 @@ describe('test /endpoints/fetchTodo', function () {
     //
     // });
     it('illegal argument', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/fetchTodo?id=');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchTodo?id=');
         assert.equal(result.data.id,'null');
 
     });
 
     it('fetch a todo', async function() {
-        const result = await axios.get('http://localhost:3001/endpoints/fetchTodo?id=234');
+        const result = await axios.get('http://localhost:3001/todo_endpoints/fetchTodo?id=234');
         assert.equal(result.data.id,'234');
         assert.equal(result.data.description,'be sure to commit unit tests');
         assert.equal(result.data.title,'commit code');
