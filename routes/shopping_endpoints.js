@@ -10,7 +10,7 @@ router.get('/searchItems', async (req, res, next) => {
     } catch (e) {
         //this will eventually be handled by your error handling middleware
         if (e instanceof TypeError || e.message == 'InvalidArgumentException') {
-            const item = {
+            const item = [{
                 id: 'null',
                 name: 'null',
                 price: 'null',
@@ -19,7 +19,7 @@ router.get('/searchItems', async (req, res, next) => {
                 status: 'null',
                 category: 'null',
                 adtType: 'null'
-            };
+            }];
             res.send(item);
         } else {
             console.log('exception: ', e.message);
