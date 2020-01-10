@@ -11,7 +11,7 @@ const itemList = [{
 }, {
     "id": 2,
     "adtType": "item",
-    "name": "backpack",
+    "name": "backpack2",
     "price": "50",
     "rating": "4",
     "seller": "YJ seller",
