@@ -26,6 +26,88 @@ const userList = [{
     address: "USA,VA,22030",
     userId: 'eaghayi',
 }];
+const logList =[{
+    "id": 1,
+    "adtType": "log",
+    "action": "purchased",
+    "date": "03/24/2019",
+    "userId": "eaghayi",
+    "itemId": 4
+},{
+    "id": 2,
+    "adtType": "log",
+    "action": "viewed",
+    "date": "03/24/2019",
+    "userId": "eaghayi",
+    "itemId": 3
+}];
+const order={
+    "id": 23,
+    "userId": "eaghayi",
+    "adtType": "order",
+    "paymentCardNumber": "1234567891234567",
+    "CVV2": "123",
+    "date": "04/24/2018",
+    "summation": 20,
+    "address": "10680 main st, fairfax, VA, 22032",
+    "itemList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ]
+};
+const shoppingCard={
+    "id": 23,
+    "itemeList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ],
+    "userId": "eaghayi",
+    "adtType": "shoppingCart"
+};
+const review ={
+    "id": 3,
+    "adtType": "review",
+    "comment": "this item was fine",
+    "rating": "3",
+    "userId": "eavazzad",
+    "itemId": 4
+};
 
 function searchItems(userId, criteria) {
     //Implementation code here
@@ -74,6 +156,23 @@ function fetchTopMostSimilarItems(userId, itemName) {
     return result;
 }
 
+function purchasesHistories(userId) {
+    if (userId.length === 0 || !userId) {
+        throw new TypeError('userId is inavlid');
+    }
+    var histotyFromDB = FetchObjectsImplementation('log');
+    //if item is there in the log and log is not empty
+    var result = [];
+    for (var i = 0; i < histotyFromDB.length; i++) {
+        if (histotyFromDB[i].action == 'purchased' && histotyFromDB[i].userId == userId) {
+            result.push(histotyFromDB[i]);
+
+        }
+    }
+
+    return result;
+}
+
 function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
     //Implementation code here
     if (!userId || !address || !paymentCardNumber || !cvv2 || !zipCode) {
@@ -118,22 +217,7 @@ function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
     return true;
 }
 
-function purchasesHistories(userId) {
-    if (userId.length === 0 || !userId) {
-        throw new TypeError('userId is inavlid');
-    }
-    var histotyFromDB = FetchObjectsImplementation('log');
-    //if item is there in the log and log is not empty
-    var result = [];
-    for (var i = 0; i < histotyFromDB.length; i++) {
-        if (histotyFromDB[i].action == 'purchased' && histotyFromDB[i].userId == userId) {
-            result.push(histotyFromDB[i]);
 
-        }
-    }
-
-    return result;
-}
 
 function browseItems(userId, itemName) {
     //Implementation code here
@@ -324,6 +408,8 @@ function FetchObjectsImplementation(adtType) {
         }
         if (adtType == 'user') {
             return userList;
+        } else  if (adtType == 'log') {
+            return logList;
         } else {
             return [];
         }
