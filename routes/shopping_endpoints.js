@@ -101,5 +101,27 @@ router.get('/browseItems', async (req, res, next) => {
     }
 });
 
+router.get('/fetchShoppingCart', async (req, res, next) => {
+    try {
+        const cart = await shoppingService.fetchShoppingCart(req.query.userId);
+
+        res.json(cart);
+    } catch(e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'IllegalArgumentException') {
+            const cart = {
+                "id": 'null',
+                "itemeList": null,
+                "userId": 'null',
+                "adtType": "shoppingCart"
+            };
+            res.send(cart);
+        } else {
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+});
+
 
 module.exports = router;

@@ -26,14 +26,14 @@ const userList = [{
     address: "USA,VA,22030",
     userId: 'eaghayi',
 }];
-const logList =[{
+const logList = [{
     "id": 1,
     "adtType": "log",
     "action": "purchased",
     "date": "03/24/2019",
     "userId": "eaghayi",
     "itemId": 4
-},{
+}, {
     "id": 2,
     "adtType": "log",
     "action": "viewed",
@@ -41,7 +41,7 @@ const logList =[{
     "userId": "eaghayi",
     "itemId": 3
 }];
-const order={
+const order = {
     "id": 23,
     "userId": "eaghayi",
     "adtType": "order",
@@ -73,8 +73,8 @@ const order={
         }
     ]
 };
-const shoppingCard={
-    "id": 23,
+const shoppingCartist = [{
+    "id": 1,
     "itemeList": [
         {
             "id": 22,
@@ -99,8 +99,8 @@ const shoppingCard={
     ],
     "userId": "eaghayi",
     "adtType": "shoppingCart"
-};
-const review ={
+}];
+const review = {
     "id": 3,
     "adtType": "review",
     "comment": "this item was fine",
@@ -116,8 +116,8 @@ function searchItems(userId, criteria) {
     if (criteria === null || criteria === "") {
         throw new TypeError('InvalidArgumentException');
     }
-    var listOfAllitems = fetchTopMostSimilarItems('item',criteria);
-    var similarItem=[];
+    var listOfAllitems = fetchTopMostSimilarItems('item', criteria);
+    var similarItem = [];
     for (var i = 0; i < listOfAllitems.length; i++) {
         if (listOfAllitems[i].name.includes(criteria) || listOfAllitems[i].category.includes(criteria)) {
             similarItem.push(listOfAllitems[i]);
@@ -247,20 +247,6 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
 
 }
 
-function isUserLoggedIn() {
-//#Implement the function
-    //check if userId is not empty
-    if (userId === "" || userId === null)
-        throw new TypeError('No valid user!');
-    //get the session object
-    var session = [];
-    if (session.userId === userId)
-        return true;
-    else
-        return false;
-
-    return {};
-}
 
 function fetchShoppingCart(userId) {
     //Implementation code here
@@ -400,6 +386,22 @@ function userLoggedIn(userId) {
 }
 
 
+function isUserLoggedIn() {
+//#Implement the function
+    //check if userId is not empty
+    if (userId === "" || userId === null)
+        throw new TypeError('No valid user!');
+    //get the session object
+    var session = [];
+    if (session.userId === userId)
+        return true;
+    else
+        return false;
+
+    return {};
+}
+
+
 function FetchObjectsImplementation(adtType) {
     if (testEnvironment) {
         if (adtType === 'item') {
@@ -407,8 +409,10 @@ function FetchObjectsImplementation(adtType) {
         }
         if (adtType == 'user') {
             return userList;
-        } else  if (adtType == 'log') {
+        } else if (adtType == 'log') {
             return logList;
+        } else if (adtType == 'shoppingCart') {
+            return shoppingCartist;
         } else {
             return [];
         }

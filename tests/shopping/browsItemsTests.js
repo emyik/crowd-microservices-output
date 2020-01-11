@@ -10,7 +10,7 @@ let axios = require('axios');
 let assert = require('assert');
 let url = 'http://localhost:3001/shopping_endpoints/browseItems';
 
-describe('test /shopping_endpoints/searchItems', function () {
+describe('test /shopping_endpoints/BrowsItems', function () {
 
 
     it('Behavior 1', async function () {
