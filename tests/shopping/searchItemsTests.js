@@ -10,7 +10,6 @@
 //     4- If 'criteria' is empty or null, a 'TypeError' exception should be thrown with a description. The function may make use of a 3rd party persistence library.
 
 
-var express = require('express'); // (npm install --save express)
 var axios = require('axios');
 var assert = require('assert');
 

@@ -77,5 +77,29 @@ router.get('/purchasesHistories', async (req, res, next) => {
     }
 });
 
+router.get('/browseItems', async (req, res, next) => {
+    try {
+        const item = await shoppingService.browseItems(req.query.userId,req.query.itemName);
+        res.json(item);
+    } catch(e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'IllegalArgumentException') {
+            const item = {
+                id: 'null',
+                name: 'null',
+                price: 'null',
+                rating: 'null',
+                seller: 'null',
+                status: 'null',
+                category: 'null',
+                adtType: 'null'};
+            res.send(item);
+        } else {
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+});
+
 
 module.exports = router;

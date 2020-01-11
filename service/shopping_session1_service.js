@@ -173,52 +173,6 @@ function purchasesHistories(userId) {
     return result;
 }
 
-function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
-    //Implementation code here
-    if (!userId || !address || !paymentCardNumber || !cvv2 || !zipCode) {
-        throw new TypeError('invalid Argunment Exception');
-    }
-
-    var listOfCarts = FetchObjectsImplementation("shoppingCart");
-    // Please provide some description for following code
-    var cartOfUser;
-    for (var i = 0; i < listOfCarts.length; i++) {
-        if (listOfCarts[i].userId == userId) {
-            cartOfUser = listOfCarts[i];
-        }
-    }
-    if (!cartOfUser) {
-        //return false;
-        throw new TypeError("Cart of User not found!");
-    }
-    //Calculating summation of prices
-    var summation;
-    for (var i = 0; i < cartOfUser.itemeList.length; i++) {
-
-        summation = summation + Number(cartOfUser.itemeList[i].price);
-    }
-    // if summation of prices is 0 , then return false.
-    if (summation === 0) {
-        // should return a meaningful response
-        //return false;
-        throw new TypeError("PriceSummationException: Price is 0!");
-    }
-
-    //delete items from shoppingCart
-    var deleted;
-    for (i = 0; i < cartOfUser.itemeList.length; i++) {
-        deleted = updateShoppingCart(userId, cartOfUser.itemeList[i].id, "delete");
-    }
-    if (!deleted) {
-        throw new TypeError('internal error');
-    }
-
-
-    return true;
-}
-
-
-
 function browseItems(userId, itemName) {
     //Implementation code here
     if (itemName == null || itemName === "") {
@@ -241,6 +195,7 @@ function browseItems(userId, itemName) {
                 "userId": userId,
                 "itemId": itemName
             };
+            SaveObjectImplementation(object1);
 
         }
     }
@@ -384,6 +339,50 @@ function recentlyViewedItems(userId) {
     }  //add if the item action is viewed
     return resultArray;
 
+}
+
+function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
+    //Implementation code here
+    if (!userId || !address || !paymentCardNumber || !cvv2 || !zipCode) {
+        throw new TypeError('invalid Argunment Exception');
+    }
+
+    var listOfCarts = FetchObjectsImplementation("shoppingCart");
+    // Please provide some description for following code
+    var cartOfUser;
+    for (var i = 0; i < listOfCarts.length; i++) {
+        if (listOfCarts[i].userId == userId) {
+            cartOfUser = listOfCarts[i];
+        }
+    }
+    if (!cartOfUser) {
+        //return false;
+        throw new TypeError("Cart of User not found!");
+    }
+    //Calculating summation of prices
+    var summation;
+    for (var i = 0; i < cartOfUser.itemeList.length; i++) {
+
+        summation = summation + Number(cartOfUser.itemeList[i].price);
+    }
+    // if summation of prices is 0 , then return false.
+    if (summation === 0) {
+        // should return a meaningful response
+        //return false;
+        throw new TypeError("PriceSummationException: Price is 0!");
+    }
+
+    //delete items from shoppingCart
+    var deleted;
+    for (i = 0; i < cartOfUser.itemeList.length; i++) {
+        deleted = updateShoppingCart(userId, cartOfUser.itemeList[i].id, "delete");
+    }
+    if (!deleted) {
+        throw new TypeError('internal error');
+    }
+
+
+    return true;
 }
 
 function userLoggedIn(userId) {
