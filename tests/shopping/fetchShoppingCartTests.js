@@ -34,7 +34,7 @@ describe('test /shopping_endpoints/fetchShoppingCart', function () {
     });
     it('Behavior 4', async function () {
         const result = await axios.get(url,{params:{ userId:''}});
-        assert.equal(result.data.id,'null','check the implementation, it is not implemented in the body of function ');
+        assert.equal(result.data.id,'null',);
 
     });
 });
