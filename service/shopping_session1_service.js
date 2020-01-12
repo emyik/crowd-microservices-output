@@ -75,7 +75,7 @@ const order = {
 };
 const shoppingCartist = [{
     "id": 1,
-    "itemeList": [
+    "itemList": [
         {
             "id": 22,
             "adtType": "item",
@@ -212,7 +212,7 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
         var itemsinDB = FetchObjectsImplementation('item');
         var itemFound;
         for (var i = 0; i < itemsinDB.length; i++) {
-            if (itemsinDB[i].id === itemId) {
+            if (itemsinDB[i].id == itemId) {
                 itemFound = itemsinDB[i];
                 break;
             }
@@ -221,14 +221,15 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
         var cartsinDB = FetchObjectsImplementation('shoppingCart');
         var cartFound;
         for (var i = 0; i < cartsinDB.length; i++) {
-            if (cartsinDB[i].id === itemId) {
+            if (cartsinDB[i].userId === userId) {
                 cartFound = cartsinDB[i];
                 break;
             }
         }
         //add item to cart
+
         if (flagOfAction === 'adding') {
-            var cartUpdatedObj = cartFound.itemList.push(itemFound);
+           var cartUpdatedObj = cartFound.itemList.push(itemFound);
         }
         // remove it
         if (flagOfAction === 'removing') {
@@ -237,8 +238,10 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
                     cartFound.itemList.splice(i, 1);
                 }
             }
-            var cartUpdatedObj = cartFound.itemList.push(itemFound);
+            // cartUpdatedObj = cartFound.itemList.push(itemFound);
         }
+        SaveObjectImplementation(cartFound);
+        return true;
 
 
     } else
@@ -246,7 +249,6 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
 
 
 }
-
 
 function fetchShoppingCart(userId) {
     //Implementation code here

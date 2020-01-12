@@ -9,3 +9,53 @@
 // the function should store a log from the items the user add or remove from the shopping cart, t
 // his log might be useful for future item recommendations. The function may make use of a 3rd party persistence library .
 // 6-If any of the input arguments are empty or null, a 'TypeError' exception should be thrown with a description.
+
+
+let axios = require('axios');
+let assert = require('assert');
+
+var shoppingService = require('../../service/shopping_session1_service');
+let url = 'http://localhost:3001/shopping_endpoints/updateShoppingCart';
+
+describe('test /shopping_endpoints/updateShoppingCart', function () {
+
+
+    it('Behavior 1:', async function () {
+        const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'removing'}});
+        assert.equal(obj1.data.result, true);
+
+        assert.equal(1,1,'TODO: check implementation');
+
+    });
+
+    it('Behavior 2', async function () {
+        const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'adding'}});
+        assert.equal(obj1.data.result, true);
+    });
+
+    it('Behavior 3', async function () {
+        const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'removing'}});
+        assert.equal(obj1.data.result, true);
+
+    });
+    it('Behavior 4', async function () {
+        const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'SOMETHING'}});
+        assert.notEqual(obj1.data.result, true);
+        assert.equal(obj1.data.result, null);
+
+    });
+
+    it('Behavior 5:', async function () {
+        const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'removing'}});
+        assert.equal(obj1.data.result, true);
+
+        assert.equal(1,2,'TODO: check implementation');
+
+    });
+    it('Behavior 6', async function () {
+
+        const obj = await axios.post(url, {params: {userId:'eaghayi', itemId:'', flagOfAction:'removing'}});
+        assert.equal(obj.data.result, null);
+        assert.notEqual(obj.data.result, true);
+    });
+});
