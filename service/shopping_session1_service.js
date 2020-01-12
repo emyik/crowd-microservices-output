@@ -286,7 +286,7 @@ function reviewAnItem(userId, itemId, comment, rate) {
     }
 // i think function description is not completely correct, there is not list for review in items, so it doesnot need to looks in dataase for finding item
     var reviewObj = {
-        "id": 32324,
+        "id": Math.random(),
         "adtType": "review",
         "comment": comment,
         "rating": rate,

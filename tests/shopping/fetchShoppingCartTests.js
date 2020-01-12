@@ -26,7 +26,6 @@ describe('test /shopping_endpoints/fetchShoppingCart', function () {
 
     });
 
-
     it('Behavior 3', async function () {
         const result = await axios.get(url,{params:{ userId:'eaghayi', itemName:'backpack'}});
         assert.equal(0,1,'check the implementation, it is not implemented in the body of function ');

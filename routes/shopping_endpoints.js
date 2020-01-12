@@ -124,4 +124,21 @@ router.get('/fetchShoppingCart', async (req, res, next) => {
 });
 
 
+router.post('/reviewAnItem', async (req, res, next) => {
+    try {
+        const boolResp = await shoppingService.reviewAnItem(req.body.params.userId,req.body.params.itemId,req.body.params.comment,req.body.params.rate);
+
+        res.json({result:boolResp});
+    } catch(e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'IllegalArgumentException') {
+            res.send({result:null});
+        } else {
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+});
+
+
 module.exports = router;
