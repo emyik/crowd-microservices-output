@@ -37,8 +37,7 @@ describe('test /shopping_endpoints/purchase histories', function () {
     it('Behavior 3: userId should not be null or empty', async function () {
         const result = await axios.get(url, {
             params: {
-                userId: '',
-                itemName: 'Nothing'
+                userId: ''
             }
         });
         assert.equal(result.data[0].id, "null");

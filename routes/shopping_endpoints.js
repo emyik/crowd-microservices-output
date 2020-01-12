@@ -123,6 +123,32 @@ router.get('/fetchShoppingCart', async (req, res, next) => {
     }
 });
 
+router.get('/recentlyViewedItems', async (req, res, next) => {
+    try {
+        const items = await shoppingService.recentlyViewedItems(req.query.userId);
+
+        res.json(items);
+    } catch(e) {
+        //this will eventually be handled by your error handling middleware
+        if (e instanceof TypeError || e.message == 'IllegalArgumentException') {
+            const item = [{
+                id: 'null',
+                name: 'null',
+                price: 'null',
+                rating: 'null',
+                seller: 'null',
+                status: 'null',
+                category: 'null',
+                adtType: 'null'
+            }];
+            res.send(item);
+        } else {
+            console.log('exception: ', e.message);
+            next(e);
+        }
+    }
+});
+
 
 router.post('/reviewAnItem', async (req, res, next) => {
     try {
