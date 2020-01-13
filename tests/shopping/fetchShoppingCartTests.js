@@ -15,7 +15,7 @@ describe('test /shopping_endpoints/fetchShoppingCart', function () {
         const result = await axios.get(url, {params: {userId: 'eaghayi'}});
 
         assert.equal(result.data.userId, 'eaghayi');
-        assert.equal(result.data.itemeList.length, 2);
+        assert.equal(result.data.itemList.length, 2);
 
     });
     //
@@ -26,7 +26,7 @@ describe('test /shopping_endpoints/fetchShoppingCart', function () {
 
     });
 
-    it('Behavior 3', async function () {
+    it('Behavior 3: TODO: check the implementation, it is not implemented in the body of function', async function () {
         const result = await axios.get(url,{params:{ userId:'eaghayi', itemName:'backpack'}});
         assert.equal(0,1,'check the implementation, it is not implemented in the body of function ');
 

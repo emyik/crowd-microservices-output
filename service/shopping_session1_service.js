@@ -351,7 +351,7 @@ function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
     var summation;
     for (var i = 0; i < cartOfUser.itemeList.length; i++) {
 
-        summation = summation + Number(cartOfUser.itemeList[i].price);
+        summation = summation + Number(cartOfUser.itemList[i].price);
     }
     // if summation of prices is 0 , then return false.
     if (summation === 0) {

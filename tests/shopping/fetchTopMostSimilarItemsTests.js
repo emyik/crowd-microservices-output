@@ -24,7 +24,7 @@ describe('test /shopping_endpoints/Fetch Top Most Similar', function () {
         assert.equal(result.data[0].name, 'backpack2');
     });
 
-    it('Behavior 2:  similar items are more than 20 items', async function () {
+    it('Behavior 2:  TODO: is not implemented. similar items are more than 20 items', async function () {
         const result = await axios.get('http://localhost:3001/shopping_endpoints/fetchTopMostSimilarItems', {
             params: {
                 userId: 'eaghayi',
