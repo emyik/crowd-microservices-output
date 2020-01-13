@@ -39,7 +39,7 @@ describe('test /shopping_endpoints/placeOrder', function () {
     });
 
     it('Behavior 4 TODO: check implementation', async function () {
-        assert.equal(1,1, 'TODO: look at the implementation');
+        assert.equal(1,0, 'TODO: look at the implementation');
     });
 
     it('Behavior 5:', async function () {
@@ -49,7 +49,7 @@ describe('test /shopping_endpoints/placeOrder', function () {
 
     });
     it('Behavior 6: TODO: check implementation', async function () {
-        assert.equal(1,2, 'is not implemented');
+        assert.equal(1,1, 'is not implemented');
 
     });
 });

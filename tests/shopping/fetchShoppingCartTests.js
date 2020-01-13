@@ -19,10 +19,9 @@ describe('test /shopping_endpoints/fetchShoppingCart', function () {
 
     });
     //
-    it('Behavior 2', async function () {
-        const result = await axios.get(url,{params:{ userId:'eaghayiNot'}});
-        assert.equal(result.data, false);
-        assert.notEqual(result.data.id, "null");
+    it('Behavior 2:', async function () {
+        const result = await axios.get(url,{params:{ userId:'favazzad'}});// favazzad has two carts, so it should throw error
+        assert.equal(result.data.id, "null");
 
     });
 

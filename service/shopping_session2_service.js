@@ -1,8 +1,168 @@
+testEnvironment = true;
+const itemList = [{
+    "id": 1,
+    "adtType": "item",
+    "name": "backpack",
+    "price": "50",
+    "rating": "4",
+    "seller": "YJ seller",
+    "status": "availble",
+    "category": "dress"
+}, {
+    "id": 2,
+    "adtType": "item",
+    "name": "backpack2",
+    "price": "50",
+    "rating": "4",
+    "seller": "YJ seller",
+    "status": "availble",
+    "category": "school"
+}];
+const userList = [{
+    adtType: 'user', //{logs,reviews,users,items,shoppingCarts}
+    id: 1,  // random integer less than 1000000000
+    firstName: 'emad',
+    lastName: 'aghayi',
+    address: "USA,VA,22030",
+    userId: 'eaghayi',
+}];
+const logList = [{
+    "id": 1,
+    "adtType": "log",
+    "action": "purchased",
+    "date": "03/24/2019",
+    "userId": "eaghayi",
+    "itemId": 4
+}, {
+    "id": 2,
+    "adtType": "log",
+    "action": "viewed",
+    "date": "03/24/2019",
+    "userId": "eaghayi",
+    "itemId": 3
+}];
+const order = {
+    "id": 23,
+    "userId": "eaghayi",
+    "adtType": "order",
+    "paymentCardNumber": "1234567891234567",
+    "CVV2": "123",
+    "date": "04/24/2018",
+    "summation": 20,
+    "address": "10680 main st, fairfax, VA, 22032",
+    "itemList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ]
+};
+const shoppingCartist = [{
+    "id": 1,
+    "itemList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ],
+    "userId": "eaghayi",
+    "adtType": "shoppingCart"
+},{
+    "id": 2,
+    "itemList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ],
+    "userId": "favazzad",// add error for behavior 2 of fetchshopping cart
+    "adtType": "shoppingCart"
+},{
+    "id": 3,
+    "itemList": [
+        {
+            "id": 22,
+            "adtType": "item",
+            "name": "Casio sport men watch",
+            "price": "220",
+            "rating": "3",
+            "seller": "Casio",
+            "status": "availble",
+            "category": "men wear"
+        },
+        {
+            "id": 1,
+            "adtType": "item",
+            "name": "Ytonet backpack",
+            "price": "50",
+            "rating": "4",
+            "seller": "YJ seller",
+            "status": "availble",
+            "category": "dress"
+        }
+    ],
+    "userId": "favazzad",//// add error for behavior 2 of fetchshopping cart
+    "adtType": "shoppingCart"
+}];
+const review = {
+    "id": 3,
+    "adtType": "review",
+    "comment": "this item was fine",
+    "rating": "3",
+    "userId": "eavazzad",
+    "itemId": 4
+};
 
 
-
-function searchItems(userId, criteria)
-{
+function searchItems(userId, criteria) {
     if (!criteria) {
         throw new TypeError('Criteria cannot be empty or null');
     }
@@ -29,8 +189,7 @@ function searchItems(userId, criteria)
 }
 
 
-function browseItems(userId, itemName)
-{
+function browseItems(userId, itemName){
     //Implementation code here
     if (!itemName) {
         throw new TypeError("itemName can't be empty or null");
@@ -39,7 +198,7 @@ function browseItems(userId, itemName)
     var listBrowsed = [];
     // refine list of items to reurn only items with same name
     for (var j=0; j < items.length; j++){
-        if (items[j].name === 'itemName'){
+        if (items[j].name === itemName){
             listBrowsed.push(items[j]);
         }
     }
@@ -65,8 +224,7 @@ function browseItems(userId, itemName)
 }
 
 
-function fetchShoppingCart(userId)
-{
+function fetchShoppingCart(userId) {
     //Implementation code here
     if (userId === null || userId === "") {
         throw new TypeError("userId cannot be empty or null");
@@ -88,14 +246,14 @@ function fetchShoppingCart(userId)
         }
     }
 
-    for(var j = 0; j < shoppingCart.itemeList.length; j++) {
+    for(var j = 0; j < shoppingCart.itemList.length; j++) {
         var itemLog = {
             "id": Math.random(),
             "adtType": "log",
             "action": "viewed",
             "date": new Date(),
             "userId": userId,
-            "itemId": shoppingCart.itemeList[i].id
+            "itemId": shoppingCart.itemList[j].id
         };
 
         SaveObjectImplementation(itemLog);
@@ -107,8 +265,7 @@ function fetchShoppingCart(userId)
 }
 
 
-function updateShoppingCart(userId, itemId, flagOfAction)
-{
+function updateShoppingCart(userId, itemId, flagOfAction){
     if (!userId) {
         throw new TypeError("Invalid userId");
     }
@@ -125,14 +282,14 @@ function updateShoppingCart(userId, itemId, flagOfAction)
     var item = searchItems(itemId);
     // add item to list of items in shopping cart
     if('adding' === flagOfAction){
-        shoppingCartOfUser.itemeList.push(item);
+        shoppingCartOfUser.itemList.push(item);
     }
 
     // remove item from list of items in shopping cart of user
     if('removing' === flagOfAction){
         for( var i = 0; i < shoppingCartOfUser.itemeList.length; i++){
-            if ( shoppingCartOfUser.itemeList[i].id === itemId) {
-                shoppingCartOfUser.itemeList.splice(i, 1);
+            if ( shoppingCartOfUser.itemList[i].id === itemId) {
+                shoppingCartOfUser.itemList.splice(i, 1);
             }
         }
     }
@@ -151,8 +308,7 @@ function updateShoppingCart(userId, itemId, flagOfAction)
 }
 
 
-function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode)
-{
+function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode) {
     //Implementation code here
     if(!userId || !address|| !paymentCardNumber|| !cvv2 ||!zipCode){
         throw new TypeError('IAE');
@@ -184,8 +340,7 @@ function placeOrder(userId, address, paymentCardNumber, cvv2, zipCode)
 }
 
 
-function fetchTopMostSimilarItems(userId, itemName)
-{
+function fetchTopMostSimilarItems(userId, itemName) {
     //Implementation code here
     if (!userId || !itemName) {
         throw new TypeError('Invalid Input');
@@ -193,7 +348,7 @@ function fetchTopMostSimilarItems(userId, itemName)
     var items = FetchObjectsImplementation("item");
     var wantedItems = [];
     for(var i =0;i<items.length;i++){
-        if(items[i].includes(itemName)){
+        if(items[i].name.includes(itemName)){
             wantedItems.push(items[i]);
         }
     }
@@ -201,8 +356,7 @@ function fetchTopMostSimilarItems(userId, itemName)
 }
 
 
-function recentlyViewedItems(userId)
-{
+function recentlyViewedItems(userId) {
     if (!userId || userId === "") {
         throw new TypeError("Invalid userId");
     }
@@ -234,8 +388,7 @@ function purchasesHistories(userId)
 }
 
 
-function reviewAnItem(userId, itemId, comment, rate)
-{
+function reviewAnItem(userId, itemId, comment, rate) {
     //Implementation code here
     if(rate===null){
         throw new TypeError("rate field is null");
@@ -289,8 +442,8 @@ function UpdateObject(object)
 }
 
 
-null
-{
+function logItems(userId,reason) {
+
 //#Implement the function
     if(!userId || (!reason || (!reason.includes("purchased") && !reason.includes("viewed") && !reason.includes("reviewed")))){
         throw new TypeError("UserId or Reason is invalid");
@@ -307,6 +460,46 @@ null
     return SaveObjectImplementation(logObj);
 
 }
+
+
+function FetchObjectsImplementation(adtType) {
+    if (testEnvironment) {
+        if (adtType === 'item') {
+            return itemList;
+        }
+        if (adtType == 'user') {
+            return userList;
+        } else if (adtType == 'log') {
+            return logList;
+        } else if (adtType == 'shoppingCart') {
+            return shoppingCartist;
+        } else {
+            return [];
+        }
+
+    } else {
+        const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
+            res.send(snapshot.val());
+        });
+
+        return listOFTodos;
+    }
+}
+
+// function SaveObject(todo) {
+
+
+async function SaveObjectImplementation(object) {
+    if (testEnvironment) {
+
+        return object;
+    } else {
+        await firebaseUtil.saveObjectDAO(object.title, object.description, object.dueDate, object.dataStoreId, object.userId, object.id,
+            object.status, object.groupId, object.priority, object.address, object.repeat);
+        return "Saved";
+    }
+}
+
 module.exports = {
     searchItems:searchItems,
     browseItems:browseItems,

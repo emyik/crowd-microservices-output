@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var shoppingService = require('../service/shopping_session1_service');
+// var shoppingService = require('../service/shopping_session1_service');
+var shoppingService = require('../service/shopping_session2_service');
 var testEnvironment = true;
 
 router.get('/searchItems', async (req, res, next) => {

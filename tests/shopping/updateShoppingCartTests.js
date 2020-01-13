@@ -20,11 +20,11 @@ let url = 'http://localhost:3001/shopping_endpoints/updateShoppingCart';
 describe('test /shopping_endpoints/updateShoppingCart', function () {
 
 
-    it('Behavior 1:', async function () {
+    it('Behavior 1: TODO: check implementation', async function () {
         const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', flagOfAction:'removing'}});
-        assert.equal(obj1.data.result, true);
+        // assert.equal(obj1.data.result, true);
 
-        assert.equal(1,1,'TODO: check implementation');
+        assert.equal(1,0,'TODO: check implementation');
 
     });
 

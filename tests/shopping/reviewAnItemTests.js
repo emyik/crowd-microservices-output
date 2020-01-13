@@ -14,7 +14,7 @@ describe('test /shopping_endpoints/reviewAnItem', function () {
     it('Behavior 1:', async function () {1
         const obj1 = await axios.post(url, {params: {userId:'eaghayi', itemId:'1', comment:'recomend it', rate:'3'}});
 
-        assert.equal(obj1.data.result, true);
+        assert.equal(obj1.data.result.comment, 'recomend it');
 
     });
     it('Behavior 2', async function () {

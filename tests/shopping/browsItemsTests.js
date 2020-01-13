@@ -16,21 +16,24 @@ describe('test /shopping_endpoints/BrowsItems', function () {
     it('Behavior 1', async function () {
         const result = await axios.get(url, {params: {userId: 'eaghayi', itemName: 'backpack'}});
 
-        assert.equal(result.data.name, 'backpack');
-        assert.notEqual(result.data.name, 'backpackSomething');
+        assert.equal(result.data[0].name, 'backpack');
+        assert.notEqual(result.data[0].name, 'backpackSomething');
     });
     //
     it('Behavior 2', async function () {
         const result = await axios.get(url,{params:{ userId:'eaghayi', itemName:'backpackSOmething'}});
-        assert.equal(result.data.id, "null");
+        // assert.equal(result.data.id, "null");
+        assert.equal(result.data.length, 0);
 
     });
 
     it('Behavior 3', async function () {
         const result = await axios.get(url,{params:{ userId:"", itemName:'backpack'}});
 
-        assert.equal(result.data.name, 'backpack');
-        assert.notEqual(result.data.name, 'backpackSomething');
+        // assert.equal(result.data.name, 'backpack');
+        assert.equal(result.data[0].name, 'backpack');
+        assert.notEqual(result.data[0].name, 'backpackSomething');
+        // assert.notEqual(result.data.name, 'backpackSomething');
 
     });
     it('Behavior 4', async function () {
