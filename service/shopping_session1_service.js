@@ -221,7 +221,7 @@ function updateShoppingCart(userId, itemId, flagOfAction) {
         var cartsinDB = FetchObjectsImplementation('shoppingCart');
         var cartFound;
         for (var i = 0; i < cartsinDB.length; i++) {
-            if (cartsinDB[i].userId === userId) {
+            if (cartsinDB[i].itemId === itemId) {
                 cartFound = cartsinDB[i];
                 break;
             }

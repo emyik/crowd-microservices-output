@@ -4,6 +4,7 @@ var router = express.Router();
 var shoppingService = require('../service/shopping_session2_service');
 var testEnvironment = true;
 
+
 router.get('/searchItems', async (req, res, next) => {
     try {
         const item = await shoppingService.searchItems(req.query.userId, req.query.criteria);
