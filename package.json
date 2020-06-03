@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "devstart": "nodemon  --inspect ./bin/www",
-    "test": "mocha \"./tests/shopping/*.js\""
+    "test": "mocha \"./tests/*/*.js\""
   },
   "engines": {
     "npm": "5.6.0",
