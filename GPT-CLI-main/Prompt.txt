@@ -1,0 +1,157 @@
+type Todo= {
+   title: String
+   description: String
+   dueDate: String
+   dataStoreId: String
+   userId: String
+   id: Number
+   status: Number
+   groupId: String
+   createdTime: String
+   createdDate: String
+   priority: Number
+   address: String
+   repeat:String
+}
+
+
+type todoArray = {
+ todoArray: Todo[]
+}
+
+
+// Third party API for persistence
+function FetchObjectImplementation(objectId) {
+   if (testEnvironment) {
+       if (objectId == 234) {
+           const todo = {
+               title: 'commit code',
+               description: 'be sure to commit unit tests',
+               dueDate: '02-25-2018',
+               dataStoreId: "schoolworkds",
+               userId: 'eaghayi',
+               id: '234',
+               status: 'in-progress',
+               groupId: 'work',
+               createdTime: '1:30pm',
+               createdDate: '02/25/2018',
+               priority: 1,
+               address: '',
+               repeat: ''
+           };
+
+
+
+
+           return todo;
+       }
+       else {
+           //var resp;
+           // Promise.resolve(null).then(function(value) {
+           //     console.log(value); // "Success"
+           //     resp= value;
+           // });
+           return null;
+
+
+       }
+   } else {
+
+
+       const todo = firebaseUtil.fetchObjectDao(objectId);
+       if (todo === undefined || todo === {}) {
+           return null;
+       } else return todo;
+   }
+}
+
+
+function FetchAllObjectsImplementation(userId, res) {
+   if (testEnvironment) {
+       if (userId === 'eaghayi') {
+           const todoList = [{
+               title: 'commit code',
+               description: 'be sure to commit unit tests',
+               dueDate: '02/25/2018',
+               dataStoreId: "schoolworkds",
+               userId: 'eaghayi',
+               id: '1',
+               status: 1,
+               groupId: 'school',
+               createdTime: '1:30pm',
+               createdDate: '02/25/2018',
+               priority: 3,
+               address: '',
+               repeat: ''
+           }, {
+               title: 'push code',
+               description: 'be sure to push unit tests',
+               dueDate: '02/25/2018',
+               dataStoreId: "schoolworkds",
+               userId: 'eaghayi',
+               id: '2',
+               status: 2,
+               groupId: 'school',
+               createdTime: '1:30pm',
+               createdDate: '02/25/2018',
+               priority: 3,
+               address: '',
+               repeat: ''
+           }];
+
+
+
+
+           return todoList;
+       } else {
+           return [];
+       }
+
+
+   } else {
+       const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {
+           res.send(snapshot.val());
+       });
+
+
+       return listOFTodos;
+   }
+}
+
+
+async function SaveObjectImplementation(todo) {
+   if (testEnvironment) {
+       return todo;
+   } else {
+       await  firebaseUtil.saveObjectDAO(todo.title, todo.description, todo.dueDate, todo.dataStoreId, todo.userId, todo.id,
+           todo.status, todo.groupId, todo.priority, todo.address, todo.repeat);
+       return "Saved";
+   }
+}
+
+
+async function UpdateObjectImplementation(todo) {
+   if (testEnvironment) {
+       return todo;
+   } else {
+       await firebaseUtil.updateObjectDAO(todo);
+       return "updated";
+   }
+}
+
+
+async function DeleteObjectImplementation(todo) {
+   if (testEnvironment) {
+       return todo;
+   } else {
+       const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
+       var result = await  firebasePromise;
+       return result;
+   }
+}
+
+You are a professional who writes Javascript functions.
+Please write the function fetchTodosBasedOnStatus with the following functionality: Get an array of todos based on the status. Each todo has a status which shows this todo is completed, in-progress or archived. A todo is completed or done if the value of status be "1", is archived if the value of status property in object todo is "3", and it is in -progress if the status property in object todo is "2". It returns an empty array if it can not find the array. It should call the 3rd party persisting APIs for interacting with the database. It should check the argument values to be valid, userId and status should not be null or empty. It throws TypeError ('Illegal Argument Exception') if the input arguments are empty or null. It throws TypeError ('Illegal Argument Exception') if the value of status is anything except 1, 2 or 3.
+Parameters: userId String
+Return: Todo[].
+You may call on the third party API functions.
