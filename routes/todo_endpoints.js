@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var service = require('../service/todo_microservice');
+var service = require('../service/todo_microservice1');
 var testEnvironment = true;
 router.post('/addTodo', function (req, res) {
     res.send(service.addTodo(req.body.todo));
@@ -583,3 +583,12 @@ router.post('/markTodoAsArchived', function (req, res) {
 
 
 module.exports = router;
+
+const app = express();
+app.use('/', router);
+
+// Start the server
+const port = 3001; // Change it to the desired port number
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});
