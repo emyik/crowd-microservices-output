@@ -1,3 +1,5 @@
-To run the server use command `node routes/todo_endpoints.js`.
+To generate functions use `python GPT-CLI-main/automatedUseAPI.py`
 
-To execute unit tests use command `npx mocha tests/alltodoTests.js`.
+To run the server use `node routes/todo_endpoints.js`.
+
+To execute unit tests use `npx mocha tests/alltodoTests.js`.

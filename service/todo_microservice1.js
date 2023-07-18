@@ -1,284 +1,255 @@
 var firebaseUtil = require('../util/firebaseUtil');
 var testEnvironment = true;
 
+
 function deleteTodo(todo) {
-    if (todo.id === undefined || todo.id === null || todo.id === '') {
-        throw new TypeError('Illegal Argument Exception');
-    }
-    const deletedTodo = DeleteObjectImplementation(todo);
-    if (deletedTodo === null) {
-        return null;
-    }
-    return deletedTodo;
+   if (todo === undefined || todo === null) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+   if (todo.id === undefined || todo.id === null || todo.id === '') {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   const deletedTodo = DeleteObjectImplementation(todo);
+   if (deletedTodo === null) {
+       return null;
+   } else {
+       return deletedTodo;
+   }
 }
 
-function fetchTodo(id){
-    if(id == null || id == ''){
-        throw new TypeError('Illegal Argument Exception');
-    }
-    const todo = FetchObjectImplementation(id);
-    return todo;
+function fetchTodo(id) {
+   if (id == null || id == undefined) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   const todo = FetchObjectImplementation(id);
+
+   if (todo == null) {
+       return null;
+   } else {
+       return todo;
+   }
 }
 
 function fetchAllTodos(userId) {
-    if (userId === null || userId === "") {
-        throw new TypeError('Illegal Argument Exception');
-    }
-    const todoList = FetchAllObjectsImplementation(userId);
-    if (todoList === null || todoList === undefined) {
-        return [];
-    }
-    return todoList;
+   if (userId === null || userId === '') {
+       throw new TypeError('Illegal Argument Exception');
+   }
+   let todoList = [];
+   try {
+       todoList = FetchAllObjectsImplementation(userId);
+   } catch (e) {
+       console.log(e);
+   }
+   return todoList;
 }
 
-function getAllArchived(userId){
-    if(userId == null || userId == ''){
-       throw new TypeError('Illegal Argument Exception');
+function getAllArchived(userId) {
+  if (!userId || userId === '') {
+    throw new TypeError('Illegal Argument Exception');
+  }
+
+  let archivedTodos = [];
+  const allTodos = FetchAllObjectsImplementation(userId);
+  allTodos.forEach(todo => {
+    if (todo.status === 3) {
+      archivedTodos.push(todo);
     }
-    let archivedTodos = [];
-    let allTodos = FetchAllObjectsImplementation(userId);
-    allTodos.forEach(function(todo){
-       if(todo.status == 3){
-          archivedTodos.push(todo);
-       }
-    });
-    return archivedTodos;
+  });
+  return archivedTodos;
 }
 
 function getAllDone(userId) {
-    if (!userId || userId === null || userId === '') {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    const todos = FetchAllObjectsImplementation(userId);
-    const doneTodos = todos.filter(todo => todo.status === 1);
-    return doneTodos;
+   if (userId === null || userId === undefined || userId === '') {
+       throw new TypeError('Illegal Argument Exception');
+   }
+   let todoList = FetchAllObjectsImplementation(userId);
+   let doneTodos = todoList.filter(todo => todo.status === 1);
+   return doneTodos;
 }
 
-function getAllTodosOfGroup(groupId, userId) {
-    if (groupId === null || groupId === '' || userId === null || userId === '') {
-        throw new TypeError('IllegalArgumentException');
-    }
- 
-    let listOfTodos = [];
- 
-    FetchAllObjectsImplementation(userId).then(function (todoList) {
-        todoList.forEach(function (todo) {
-            if (todo.groupId === groupId) {
-                listOfTodos.push(todo);
-            }
-        });
-    });
- 
-    return listOfTodos;
+function getAllTodoOfaGroup(groupId, userId) {
+   if (groupId === null || groupId === '' || userId === null || userId === '') {
+       throw new TypeError('IllegalArgumentException');
+   }
+   let todos = FetchAllObjectsImplementation(userId);
+   let filteredTodos = todos.filter(todo => todo.groupId === groupId);
+   return filteredTodos;
 }
 
 function markTodoAsDone(id) {
-    if (id == null || id == "") {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    // Fetch the todo from 3rd party API
-    let todo = FetchObjectImplementation(id);
- 
-    // If todo is not found, return false
-    if (todo == null) {
-        return false;
-    }
- 
-    // Update the status of the todo
-    todo.status = 1;
- 
-    // Update the todo in 3rd party API
-    UpdateObjectImplementation(todo);
- 
-    return true;
+   if (!id) throw TypeError('Illegal Argument Exception');
+   let todo = FetchObjectImplementation(id);
+   if (todo === null) return false;
+   todo.status = 1;
+   UpdateObjectImplementation(todo);
+   return true;
 }
 
 function markTodoAsArchived(id) {
-    if (id == null || id == undefined || id === '') {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    const todo = FetchObjectImplementation(id);
-    if (todo == null) {
-        return false;
-    }
-    todo.status = 3;
-    const result = UpdateObjectImplementation(todo);
-    return result;
+   if (!id) {
+       throw TypeError('Illegal Argument Exception');
+   }
+
+   let todo = FetchObjectImplementation(id);
+   if (!todo) {
+       return false;
+   }
+
+   todo.status = 3;
+   let result = UpdateObjectImplementation(todo);
+   if (result == "updated") {
+       return true;
+   } else {
+       return false;
+   }
 }
 
 function updateTodo(todo) {
-    if (todo.userId == null || todo.userId == "" || todo.dataStoreId == null || todo.dataStoreId == "" || todo.id == null || todo.id == "" || todo.createdTime == null || todo.createdTime == "" || todo.createdDate == null || todo.createdDate == "") {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    if (todo.dueDate != null && todo.dueDate != "") {
-        let dateFormat = /\d{2}\/\d{2}\/\d{4},\d{2}:\d{2}/;
-        if (!dateFormat.test(todo.dueDate)) {
-            throw new TypeError('Illegal Argument Exception');
-        }
-    }
- 
-    let updatedTodo = FetchObjectImplementation(todo.id);
-    if (updatedTodo == null) {
-        throw new TypeError('No Such Element Exception');
-    }
- 
-    updatedTodo.title = todo.title;
-    updatedTodo.description = todo.description;
-    updatedTodo.dueDate = todo.dueDate;
-    updatedTodo.dataStoreId = todo.dataStoreId;
-    updatedTodo.userId = todo.userId;
-    updatedTodo.status = todo.status;
-    updatedTodo.groupId = todo.groupId;
-    updatedTodo.priority = todo.priority;
-    updatedTodo.address = todo.address;
-    updatedTodo.repeat = todo.repeat;
- 
-    SaveObjectImplementation(updatedTodo);
- 
-    return updatedTodo;
+   if (todo.userId == null || todo.userId == "" || todo.dataStoreId == null || todo.dataStoreId == "" || todo.id == null || todo.id == "" || todo.createdTime == null || todo.createdTime == "" || todo.createdDate == null || todo.createdDate == "") {
+       throw new TypeError('Illegal Argument Exception');
+   }
+   const updatedTodo = FetchObjectImplementation(todo.id);
+   if (updatedTodo == null) {
+       throw new TypeError('No Such Element Exception');
+   }
+   if (todo.dueDate != null && todo.dueDate != "") {
+       let dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2]\d|3[0-1])\/(19|20)\d{2},(2[0-3]|[0-1]\d):[0-5]\d$/;
+       if (!dateRegex.test(todo.dueDate)) {
+           throw new TypeError('Illegal Argument Exception');
+       }
+   }
+   updatedTodo.title = todo.title;
+   updatedTodo.description = todo.description;
+   updatedTodo.dueDate = todo.dueDate;
+   updatedTodo.dataStoreId = todo.dataStoreId;
+   updatedTodo.userId = todo.userId;
+   updatedTodo.id = todo.id;
+   updatedTodo.status = todo.status;
+   updatedTodo.groupId = todo.groupId;
+   updatedTodo.createdTime = todo.createdTime;
+   updatedTodo.createdDate = todo.createdDate;
+   updatedTodo.priority = todo.priority;
+   updatedTodo.address = todo.address;
+   updatedTodo.repeat = todo.repeat;
+
+   SaveObjectImplementation(updatedTodo);
+
+   return updatedTodo;
 }
 
 function addTodo(todo) {
-    if (todo.id == null || todo.id == '' ||
-        todo.title == null || todo.title == '' ||
-        todo.userId == null || todo.userId == '' ||
-        todo.dataStoreId == null || todo.dataStoreId == '') {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    if (todo.createdTime == null || todo.createdTime == '') {
-        const date = new Date();
-        todo.createdTime = date.getHours() + ':' + date.getMinutes();
-    }
- 
-    if (todo.createdDate == null || todo.createdDate == '') {
-        const date = new Date();
-        todo.createdDate = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
-    }
- 
-    if (todo.dueDate != null && todo.dueDate != '') {
-        const dueDateFormat = /^\d{2}\/\d{2}\/\d{4},\d{2}:\d{2}$/;
-        if (!dueDateFormat.test(todo.dueDate)) {
-            throw new TypeError('Illegal Argument Exception');
-        }
-    }
- 
-    const result = SaveObjectImplementation(todo);
-    return result;
+   if (!todo.id || !todo.title || !todo.userId || !todo.dataStoreId) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   if (!todo.createdTime || !todo.createdDate) {
+       const date = new Date();
+       const month = date.getMonth() + 1;
+       const day = date.getDate();
+       const year = date.getFullYear();
+       const hour = date.getHours();
+       const min = date.getMinutes();
+       todo.createdTime = `${hour}:${min}`;
+       todo.createdDate = `${month}/${day}/${year}`;
+   }
+
+   if (todo.dueDate) {
+       const dueDateRegex = /^\d{2}\/\d{2}\/\d{4},\d{2}:\d{2}$/;
+       if (!dueDateRegex.test(todo.dueDate)) {
+           throw new TypeError('Illegal Argument Exception');
+       }
+   }
+
+   const savedTodo = SaveObjectImplementation(todo);
+   return savedTodo;
 }
 
 function remindOnDueDate(userId, dueDate) {
-    if (userId === null || userId === "" || dueDate === null || dueDate === "") {
-        throw TypeError('Illegal Argument Exception');
-    }
- 
-    const dateFormat = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/[0-9]{4},(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-    if (!dueDate.match(dateFormat)) {
-        throw TypeError('Illegal Argument Exception');
-    }
- 
-    const todoArray = FetchAllObjectsImplementation(userId);
-    const today = new Date();
-    const reminderArray = [];
-    const dueDateArray = dueDate.split(',');
-    const dueDateDay = dueDateArray[0];
-    const dueDateTime = dueDateArray[1];
- 
-    for (let i = 0; i < todoArray.length; i++) {
-        const todo = todoArray[i];
-        const todoDueDateArray = todo.dueDate.split(',');
-        const todoDueDateDay = todoDueDateArray[0];
-        const todoDueDateTime = todoDueDateArray[1];
-        const todoRepeat = todo.repeat;
-        let reminderDate = new Date(dueDate);
- 
-        if (todoRepeat === '1') {
-            reminderDate.setDate(today.getDate() + 1);
-        } else if (todoRepeat === '2') {
-            reminderDate.setDate(today.getDate() + 7);
-        } else if (todoRepeat === '3') {
-            reminderDate.setFullYear(today.getFullYear() + 1);
-        }
- 
-        const reminderDay = reminderDate.getDate();
-        const reminderTime = reminderDate.getHours() + ':' + reminderDate.getMinutes();
- 
-        if (todoDueDateDay === dueDateDay && todoDueDateTime === dueDateTime) {
-            reminderArray.push(todo);
-        } else if (todoDueDateDay === reminderDay && todoDueDateTime === reminderTime) {
-            reminderArray.push(todo);
-        }
-    }
- 
-    return reminderArray;
+   if (!userId || !dueDate) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   // Check if dueDate is in correct format
+   const dueDateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(19|20)\d{2},(2[0-3]|[01]\d):[0-5]\d$/;
+   if (!dueDateRegex.test(dueDate)) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   // Fetch all todos
+   const allTodos = FetchAllObjectsImplementation(userId);
+   let todos = [];
+   // Filter out the todos whose dueDate matches with the given dueDate
+   allTodos.forEach(todo => {
+       const todoDueDate = new Date(todo.dueDate);
+       const givenDueDate = new Date(dueDate);
+       if (todoDueDate.getTime() === givenDueDate.getTime()) {
+           todos.push(todo);
+       }
+   });
+
+   // Filter out the todos whose repeat value is not 0
+   allTodos.forEach(todo => {
+       if (todo.repeat !== 0) {
+           // Calculate the dueDate of the todo
+           let todoDueDate;
+           switch (todo.repeat) {
+               case 1:
+                   todoDueDate = new Date(todo.dueDate);
+                   todoDueDate.setDate(todoDueDate.getDate() + 1);
+                   break;
+               case 2:
+                   todoDueDate = new Date(todo.dueDate);
+                   todoDueDate.setDate(todoDueDate.getDate() + 7);
+                   break;
+               case 3:
+                   todoDueDate = new Date(todo.dueDate);
+                   todoDueDate.setFullYear(todoDueDate.getFullYear() + 1);
+                   break;
+           }
+           const givenDueDate = new Date(dueDate);
+           if (todoDueDate.getTime() === givenDueDate.getTime()) {
+               todos.push(todo);
+           }
+       }
+   });
+
+   return todos;
 }
 
 function updatePriorityOfaTodo(id, priority) {
-    if (id == null || id == '' || priority == null || priority == '') {
-        throw new TypeError('Illegal Argument Exception');
-    }
-    if (priority > 4 || priority < 1) {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    const todo = FetchObjectImplementation(id);
-    if (todo == null) {
-        return false;
-    }
-    todo.priority = priority;
-    UpdateObjectImplementation(todo);
-    return true;
+   if (id == null || id == undefined || priority == null || priority == undefined || priority > 4 || priority < 1) {
+       throw new TypeError('Illegal Argument Exception');
+   }
+
+   const todo = FetchObjectImplementation(id);
+   if (todo == null) {
+       return false;
+   } else {
+       todo.priority = priority;
+       SaveObjectImplementation(todo);
+       return true;
+   }
 }
 
-function fetchTodosBasedOnStatus(userId, status) {
-    if (userId === null || userId === undefined || userId === '' || status === null || status === undefined || status === '') {
-        throw new TypeError('Illegal Argument Exception');
+function fetchTodosBasedOnStatus(userId, status){
+  if(!userId || !status){
+    throw new TypeError('Illegal Argument Exception');
+  }
+  if(status !== 1 && status !== 2 && status !== 3){
+    throw new TypeError('Illegal Argument Exception');
+  }
+  let todos = [];
+  let todoArray = FetchAllObjectsImplementation(userId);
+  for(let i=0; i<todoArray.length; i++){
+    let todo = todoArray[i];
+    if(todo.status === status){
+      todos.push(todo);
     }
- 
-    if (status !== 1 && status !== 2 && status !== 3) {
-        throw new TypeError('Illegal Argument Exception');
-    }
- 
-    let todos = FetchAllObjectsImplementation(userId);
-    let todosArray = [];
- 
-    todos.forEach(todo => {
-        if (todo.status == status) {
-            todosArray.push(todo);
-        }
-    });
- 
-    return todosArray;
-}
-
-function createGroup(todoArray, groupId) {
-    if (groupId == null || groupId == '') {
-        throw new TypeError('IllegalArgumentException');
-    }
- 
-    for (let i = 0; i < todoArray.length; i++) {
-        let todo = FetchObjectImplementation(todoArray[i].id);
-        if (todo == null) {
-            return false;
-        }
-        if (todo.groupId != null && todo.groupId == groupId) {
-            throw new TypeError('DuplicateGroupId');
-        }
-    }
- 
-    for (let i = 0; i < todoArray.length; i++) {
-        let todo = FetchObjectImplementation(todoArray[i].id);
-        todo.groupId = groupId;
-        UpdateObjectImplementation(todo);
-    }
-    return true;
-}
-
-// Third party API for persistence
+  }
+  return todos;
+}// Third party API for persistence
 function FetchObjectImplementation(objectId) {
     if (testEnvironment) {
         if (objectId == 234) {
@@ -408,7 +379,7 @@ module.exports = {
     fetchAllTodos: fetchAllTodos,
     // fetchAllTodosFromDB: fetchAllTodosFromDB,
     FetchAllObjectsImplementation: FetchAllObjectsImplementation,
-    createGroup: createGroup,
+    // createGroup: createGroup,
     // getAllTodoOfaGroup: getAllTodoOfaGroup,
     updatePriorityOfaTodo: updatePriorityOfaTodo,
     fetchTodosBasedOnStatus: fetchTodosBasedOnStatus,

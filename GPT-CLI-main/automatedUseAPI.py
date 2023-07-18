@@ -12,7 +12,8 @@ YELLOW = "\033[93m"
 BLUE = "\033[94m"
 NORMAL = "\033[0m"
 
-def textCompletion(model, prompt, temp):
+def textCompletion(prompt):
+    model, temp = "text-davinci-003", 0.5 # CAN CHANGE
     response = openai.Completion.create(
         model = model,
         prompt = prompt,
@@ -21,17 +22,10 @@ def textCompletion(model, prompt, temp):
     )
     response = json.loads(str(response))
     content = response['choices'][0]['text']
-    # print(content)
 
-    with open("service/todo_microservice2.js", "a") as file: # CHANGE
+    with open("service/todo_microservice1.js", "a") as file: # CHANGE
         file.write(content)
     return content
-
-def printChoices(useCase, model, temp):
-    print("\nYou Chose:")
-    print(GREEN + "Use Case:" + NORMAL, useCase)
-    print(BLUE + "Model:" + NORMAL, model)
-    print(YELLOW + "Temperature:" + NORMAL, temp)
 
 def extract_function_info(file_path):
     functions = []
@@ -54,22 +48,25 @@ def extract_function_info(file_path):
     return functions
 
 def main():
-    useCase, model, temp = "complete", "text-davinci-003", 0.5 # CAN CHANGE
-
     file_path = 'GPT-CLI-main/functionDescriptions.txt'
+    # get function names and descriptions
     functions = extract_function_info(file_path)
-    for function in functions:
-        with open("GPT-CLI-main/prompt_template.txt", 'r') as source: text = source.read()
-        with open("GPT-CLI-main/Prompt.txt", 'w') as destination:
-            destination.write(text + function['name'] + " with the following functionality: " + function['description'] + ".\nYou may call on the third party API functions.")
-            destination.close()
-        file = open("GPT-CLI-main/Prompt.txt", "r")
-        prompt = file.read()
-        file.close()
-        textCompletion(model, prompt, temp)    
+    for f in functions:        
+        # fill in prompt template with placeholders
+        with open('GPT-CLI-main/prompt_template1.txt', 'r') as file: template = file.read()
+        formatted_text = template.format(function=f['name'], description=f['description'])
+
+        # with open("GPT-CLI-main/Prompt.txt", 'w') as destination:
+        #     destination.write(formatted_text)
+        #     destination.close()
+        # file = open("GPT-CLI-main/Prompt.txt", "r")
+        # prompt = file.read()
+        # file.close()
+        textCompletion(formatted_text)    
     
+    # add the rest of the necessary code to microservice file
     with open("GPT-CLI-main/microservice_template.txt", 'r') as source: text = source.read()
-    with open("service/todo_microservice2.js", 'a') as destination:
+    with open("service/todo_microservice1.js", 'a') as destination: # CHANGE
         destination.write(text)
         destination.close()
 

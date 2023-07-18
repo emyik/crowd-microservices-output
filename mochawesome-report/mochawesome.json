@@ -1,0 +1,1012 @@
+{
+  "stats": {
+    "suites": 12,
+    "tests": 34,
+    "passes": 20,
+    "pending": 0,
+    "failures": 14,
+    "start": "2023-07-18T17:54:56.545Z",
+    "end": "2023-07-18T17:54:56.618Z",
+    "duration": 73,
+    "testsRegistered": 34,
+    "passPercent": 58.82352941176471,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9df44076-14b6-49f2-98df-2ac3b6170a88",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ad00a38c-411e-4a89-833f-cbaea89a079e",
+          "title": "test /addTodo",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /addTodo illegal argument",
+              "timedOut": false,
+              "duration": 24,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await\naxios.get('http://localhost:3001/addTodo', {params: {id: ''}});\nassert.equal(result.data.id, 'null');\nconst result2 = await\naxios.get('http://localhost:3001/addTodo', {params: {id: '', title: ''}});\nassert.equal(result2.data.title, 'null');\nconst result3 = await\naxios.get('http://localhost:3001/addTodo', {params: {id: '', title: '', userId: ''}});\nassert.equal(result3.data.userId, 'null');",
+              "err": {},
+              "uuid": "d6059d2c-1c6c-479d-baba-66881824a6a1",
+              "parentUUID": "ad00a38c-411e-4a89-833f-cbaea89a079e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "save todo",
+              "fullTitle": "test /addTodo save todo",
+              "timedOut": false,
+              "duration": 3,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await  axios.get('http://localhost:3001/addTodo',\n    {\n        params: {\n            id: '2',\n            title: 'testAddTodo',\n            userId: 'eaghayi',\n            status: 2,\n            groupId: 'school',\n            createdTime: '12:39',\n            createdDate: '06/13/2018',\n            priority: 1,\n            address: ' ',\n            repeat: ' '\n        }\n    });\nassert.equal(result.data.id, 2);",
+              "err": {
+                "message": "AssertionError: 'null' == 2",
+                "estack": "AssertionError [ERR_ASSERTION]: 'null' == 2\n    at Context.<anonymous> (tests/alltodoTests.js:44:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "09741a71-071b-45f7-8068-3799a0671fd1",
+              "parentUUID": "ad00a38c-411e-4a89-833f-cbaea89a079e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d6059d2c-1c6c-479d-baba-66881824a6a1"
+          ],
+          "failures": [
+            "09741a71-071b-45f7-8068-3799a0671fd1"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 27,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "d300da98-08cc-449d-b50e-447d6c7c66d9",
+          "title": "test /createGroup",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /createGroup illegal argument",
+              "timedOut": false,
+              "duration": 3,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/createGroup?todoArray=');\nassert.equal(result.data[0].id,'null');\nconst result2 = await axios.get('http://localhost:3001/createGroup?groupId=');\nassert.equal(result2.data[0].id,'null');",
+              "err": {},
+              "uuid": "9db5353d-4063-46e2-88b5-3b68ac9a995f",
+              "parentUUID": "d300da98-08cc-449d-b50e-447d6c7c66d9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "sets a label (groupId) for an array of todos",
+              "fullTitle": "test /createGroup sets a label (groupId) for an array of todos",
+              "timedOut": false,
+              "duration": 2,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// const arryOfTodo= [{\n        //     id: '209',\n        //     title: 'testAddTodo',\n        //     userId: 'eaghayi',\n        //     dueDate:'09-23-2018',\n        //     status: 2,\n        //     groupId: 'school3',\n        //     createdTime: '12:39',\n        //     createdDate: '06-13-2018',\n        //     priority: 1,\n        //     address: ' ',\n        //     repeat: ' '\n        // },{\n        //     id: '300',\n        //     title: 'testAddTodo',\n        //     userId: 'eaghayi',\n        //     dueDate:'09-23-2018',\n        //     status: 2,\n        //     groupId: 'school2',\n        //     createdTime: '12:39',\n        //     createdDate: '06-13-2018',\n        //     priority: 1,\n        //     address: ' ',\n        //     repeat: ' '\n        // }];\n        const arryOfTodo =   { \"todoArray\": [\n                {\n                    \"title\": \"coding\",\n                    \"description\": \"work on the crowd cod\",\n                    \"dueDate\": \"03-14-2020\",\n                    \"dataStoreId\": \"todo3\",\n                    \"userId\": \"emad.aghayi\",\n                    \"id\": 234,\n                    \"status\": 1,\n                    \"groupId\": \"schoolworks\",\n                    \"createdTime\": \"13:51\",\n                    \"createdDate\": \"05/21/2018\",\n                    \"priority\": 3,\n                    \"address\": \"Fairfax,VA,US 22032\",\n                    \"repeat\": \"1\"\n                }\n            ]\n        };\n        const result2 = await axios.get('http://localhost:3001/createGroup', {params:{ todoArray:arryOfTodo, groupId:'home'}});\n        // const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup?userId=eaghayi');\n        assert.equal(result2.data,true); // since all todos are  in DB, it should return true",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == true",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == true\n    at Context.<anonymous> (tests/alltodoTests.js:114:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "b5bb7859-287e-4344-85a9-3fdc906682f1",
+              "parentUUID": "d300da98-08cc-449d-b50e-447d6c7c66d9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "it returns false if it can not find the all todos items for creating the group",
+              "fullTitle": "test /createGroup it returns false if it can not find the all todos items for creating the group",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const arryOfTodo2 =   { \"todoArray\": [\n        {\n            \"title\": \"coding\",\n            \"description\": \"work on the crowd cod\",\n            \"dueDate\": \"03-14-2020\",\n            \"dataStoreId\": \"todo3\",\n            \"userId\": \"emad.aghayi\",\n            \"id\": 234,\n            \"status\": 1,\n            \"groupId\": \"schoolworks\",\n            \"createdTime\": \"13:51\",\n            \"createdDate\": \"05/21/2018\",\n            \"priority\": 3,\n            \"address\": \"Fairfax,VA,US 22032\",\n            \"repeat\": \"1\"\n        },\n        {\n            \"title\": \"coding\",\n            \"description\": \"work on the crowd cod\",\n            \"dueDate\": \"03-14-2018\",\n            \"dataStoreId\": \"todo3\",\n            \"userId\": \"emad.aghayi\",\n            \"id\": 2,\n            \"status\": 3,\n            \"groupId\": \"schoolworks\",\n            \"createdTime\": \"13:51\",\n            \"createdDate\": \"05/21/2018\",\n            \"priority\": 2,\n            \"address\": \"Fairfax,VA,US 22032\",\n            \"repeat\": \"2\"\n        },\n        {\n            \"title\": \"coding\",\n            \"description\": \"work on the crowd cod\",\n            \"dueDate\": \"03-14-2019\",\n            \"dataStoreId\": \"todo3\",\n            \"userId\": \"emad.aghayi\",\n            \"id\": 3,\n            \"status\": 2,\n            \"groupId\": \"Homework\",\n            \"createdTime\": \"13:51\",\n            \"createdDate\": \"05/21/2018\",\n            \"priority\": 1,\n            \"address\": \"Fairfax,VA,US 22032\",\n            \"repeat\": \"3\"\n        }\n    ]\n};\nconst result = await axios.get('http://localhost:3001/createGroup', {params:{ todoArray:arryOfTodo2, groupId:'school'}});\n// const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup?userId=eaghayi');\nassert.equal(result.data,false); // since all todos are not in DB, it should return flase",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == false",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == false\n    at Context.<anonymous> (tests/alltodoTests.js:171:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "a6f52865-94b4-472e-8793-11526a34a95b",
+              "parentUUID": "d300da98-08cc-449d-b50e-447d6c7c66d9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "the groupId already existed in the other todos",
+              "fullTitle": "test /createGroup the groupId already existed in the other todos",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const arryOfTodo =   { \"todoArray\": [\n                {\n                    \"title\": \"coding\",\n                    \"description\": \"work on the crowd cod\",\n                    \"dueDate\": \"03-14-2020\",\n                    \"dataStoreId\": \"todo3\",\n                    \"userId\": \"emad.aghayi\",\n                    \"id\": 234,\n                    \"status\": 1,\n                    \"groupId\": \"school\",\n                    \"createdTime\": \"13:51\",\n                    \"createdDate\": \"05/21/2018\",\n                    \"priority\": 3,\n                    \"address\": \"Fairfax,VA,US 22032\",\n                    \"repeat\": \"1\"\n                }\n            ]\n        };\n        const result = await axios.get('http://localhost:3001/createGroup', {params:{ todoArray:arryOfTodo, groupId:'school'}});\n        // const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup?userId=eaghayi');\n        assert.equal(result.data,false);",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == false",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == false\n    at Context.<anonymous> (tests/alltodoTests.js:201:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "20a31a5b-a165-4027-99d9-dc848e1fa846",
+              "parentUUID": "d300da98-08cc-449d-b50e-447d6c7c66d9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "9db5353d-4063-46e2-88b5-3b68ac9a995f"
+          ],
+          "failures": [
+            "b5bb7859-287e-4344-85a9-3fdc906682f1",
+            "a6f52865-94b4-472e-8793-11526a34a95b",
+            "20a31a5b-a165-4027-99d9-dc848e1fa846"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 7,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "261bef1e-33c7-4684-a225-f1f55636136d",
+          "title": "test /deleteTodo",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /deleteTodo illegal argument",
+              "timedOut": false,
+              "duration": 3,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await\naxios.get('http://localhost:3001/deleteTodo', {params: {id: ''}});\nassert.equal(result.data.id, 'null');\nconst result2 = await\naxios.get('http://localhost:3001/deleteTodo', {params: {id: '', title: ''}});\nassert.equal(result2.data.title, 'null');\nconst result3 = await\naxios.get('http://localhost:3001/deleteTodo', {params: {id: '', title: '', userId: ''}});\nassert.equal(result3.data.userId, 'null');",
+              "err": {},
+              "uuid": "54573b01-97aa-4721-9f28-f864d6cf150c",
+              "parentUUID": "261bef1e-33c7-4684-a225-f1f55636136d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "delete todo",
+              "fullTitle": "test /deleteTodo delete todo",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await  axios.get('http://localhost:3001/deleteTodo',\n    {\n        params: {\n            id: '2',\n            title: 'testAddTodo',\n            userId: 'eaghayi',\n            dueDate:'09-23-2018',\n            status: 2,\n            groupId: 'school',\n            createdTime: '12:39',\n            createdDate: '06-13-2018',\n            priority: 1,\n            address: ' ',\n            repeat: ' '\n        }\n    });\nassert.equal(result.data.id, 2);",
+              "err": {},
+              "uuid": "59cec52f-945d-4796-9354-bb4d2a39d0bd",
+              "parentUUID": "261bef1e-33c7-4684-a225-f1f55636136d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "54573b01-97aa-4721-9f28-f864d6cf150c",
+            "59cec52f-945d-4796-9354-bb4d2a39d0bd"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "32521b9f-9714-46e9-a094-ac84a1a84735",
+          "title": "test /fetchAllTodos",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /fetchAllTodos illegal argument",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchAllTodos?userId=');\nassert.equal(result.data[0].id,'null');",
+              "err": {},
+              "uuid": "fd3ac845-e2ba-48cd-be04-b7df2e9c65b0",
+              "parentUUID": "32521b9f-9714-46e9-a094-ac84a1a84735",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "fetch all todo",
+              "fullTitle": "test /fetchAllTodos fetch all todo",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchAllTodos?userId=eaghayi');\nassert.equal(result.data[0].id,'1');\nassert.equal(result.data[1].id,'2');\nassert.equal(result.data[0].description,'be sure to commit unit tests');\nassert.equal(result.data[1].description,'be sure to push unit tests');\nassert.equal(result.data[0].title,'commit code');\nassert.equal(result.data[1].title,'push code');\nassert.equal(result.data[0].dueDate,'02/25/2018');",
+              "err": {},
+              "uuid": "b99afa90-b4f7-4c33-acbb-11780ddeb457",
+              "parentUUID": "32521b9f-9714-46e9-a094-ac84a1a84735",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "it returns empty array if it can not find any thing",
+              "fullTitle": "test /fetchAllTodos it returns empty array if it can not find any thing",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchAllTodos?userId=tlatoza');\nassert.equal(result.data,'');",
+              "err": {},
+              "uuid": "dd9f94b0-1f03-4328-a5cc-b9381d279631",
+              "parentUUID": "32521b9f-9714-46e9-a094-ac84a1a84735",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "fd3ac845-e2ba-48cd-be04-b7df2e9c65b0",
+            "b99afa90-b4f7-4c33-acbb-11780ddeb457",
+            "dd9f94b0-1f03-4328-a5cc-b9381d279631"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "d81bf1c8-7be0-47df-bb77-0b21164c0cd9",
+          "title": "test /fetchTodosBasedOnStatus",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /fetchTodosBasedOnStatus illegal argument",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchTodosBasedOnStatus?userId=');\nassert.equal(result.data[0].id,'null');\nconst result2 = await axios.get('http://localhost:3001/fetchTodosBasedOnStatus?status=');\nassert.equal(result2.data[0].id,'null');",
+              "err": {},
+              "uuid": "43fc5e71-666e-48a6-8d99-e394daac635d",
+              "parentUUID": "d81bf1c8-7be0-47df-bb77-0b21164c0cd9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "fetch all todo of a specific status",
+              "fullTitle": "test /fetchTodosBasedOnStatus fetch all todo of a specific status",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'1'}});\n      // console.log(result.data);\nassert.equal(result.data[0].id,'1');\nassert.equal(result.data.length,1);\nassert.equal(result.data[0].status,1);",
+              "err": {
+                "message": "AssertionError: 'null' == '1'",
+                "estack": "AssertionError [ERR_ASSERTION]: 'null' == '1'\n    at Context.<anonymous> (tests/alltodoTests.js:309:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": "- null\n+ 1\n"
+              },
+              "uuid": "798530eb-0cba-44f6-a8f7-33249606bc28",
+              "parentUUID": "d81bf1c8-7be0-47df-bb77-0b21164c0cd9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "it returns empty array if it can not find any thing",
+              "fullTitle": "test /fetchTodosBasedOnStatus it returns empty array if it can not find any thing",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchTodosBasedOnStatus', {params:{ userId:'eaghayi', status:'4'}});\nassert.equal(result.data,'');",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''\n    at Context.<anonymous> (tests/alltodoTests.js:319:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "e9819355-8641-4662-ab77-8384faaa0367",
+              "parentUUID": "d81bf1c8-7be0-47df-bb77-0b21164c0cd9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "43fc5e71-666e-48a6-8d99-e394daac635d"
+          ],
+          "failures": [
+            "798530eb-0cba-44f6-a8f7-33249606bc28",
+            "e9819355-8641-4662-ab77-8384faaa0367"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 3,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "f065edae-eb9d-4abe-accf-415db9cfdd32",
+          "title": "test /fetchTodo",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /fetchTodo illegal argument",
+              "timedOut": false,
+              "duration": 0,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchTodo?id=');\nassert.equal(result.data.id,'null');",
+              "err": {
+                "message": "TypeError: Cannot read properties of null (reading 'id')",
+                "estack": "TypeError: Cannot read properties of null (reading 'id')\n    at Context.<anonymous> (tests/alltodoTests.js:355:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "325e0184-9dcc-49d0-b221-58fd5be59066",
+              "parentUUID": "f065edae-eb9d-4abe-accf-415db9cfdd32",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "fetch a todo",
+              "fullTitle": "test /fetchTodo fetch a todo",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/fetchTodo?id=234');\nassert.equal(result.data.id,'234');\nassert.equal(result.data.description,'be sure to commit unit tests');\nassert.equal(result.data.title,'commit code');\nassert.equal(result.data.dueDate,'02-25-2018');",
+              "err": {},
+              "uuid": "8e35e28a-85cd-4a4b-a664-7d9a051d5a6d",
+              "parentUUID": "f065edae-eb9d-4abe-accf-415db9cfdd32",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8e35e28a-85cd-4a4b-a664-7d9a051d5a6d"
+          ],
+          "failures": [
+            "325e0184-9dcc-49d0-b221-58fd5be59066"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "653c8cf4-02db-4b5f-9f66-11fde195f158",
+          "title": "test /getAllTodoOfaGroup",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /getAllTodoOfaGroup illegal argument",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup?userId=');\nassert.equal(result.data[0].id,'null');\nconst result2 = await axios.get('http://localhost:3001/getAllTodoOfaGroup?groupId=');\nassert.equal(result2.data[0].id,'null');",
+              "err": {},
+              "uuid": "49644113-0729-4f09-baaf-812bc9141090",
+              "parentUUID": "653c8cf4-02db-4b5f-9f66-11fde195f158",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "fetch all todo of a group",
+              "fullTitle": "test /getAllTodoOfaGroup fetch all todo of a group",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'school'}});\n// const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup?userId=eaghayi');\nassert.equal(result.data[0].id,'1');\nassert.equal(result.data[1].id,'2');\nassert.equal(result.data[0].description,'be sure to commit unit tests');\nassert.equal(result.data[1].description,'be sure to push unit tests');\nassert.equal(result.data[0].title,'commit code');\nassert.equal(result.data[1].title,'push code');\nassert.equal(result.data[0].dueDate,'02/25/2018');",
+              "err": {
+                "message": "AssertionError: 'null' == '1'",
+                "estack": "AssertionError [ERR_ASSERTION]: 'null' == '1'\n    at Context.<anonymous> (tests/alltodoTests.js:388:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": "- null\n+ 1\n"
+              },
+              "uuid": "5e885cc9-46a7-442d-9367-e26532fb99ad",
+              "parentUUID": "653c8cf4-02db-4b5f-9f66-11fde195f158",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "it returns empty array if it can not find any thing",
+              "fullTitle": "test /getAllTodoOfaGroup it returns empty array if it can not find any thing",
+              "timedOut": false,
+              "duration": 0,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/getAllTodoOfaGroup', {params:{ userId:'eaghayi', groupId:'work'}});\nassert.equal(result.data,'');",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''\n    at Context.<anonymous> (tests/alltodoTests.js:399:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "0471beda-6691-4873-90b1-f6b0e776c894",
+              "parentUUID": "653c8cf4-02db-4b5f-9f66-11fde195f158",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "49644113-0729-4f09-baaf-812bc9141090"
+          ],
+          "failures": [
+            "5e885cc9-46a7-442d-9367-e26532fb99ad",
+            "0471beda-6691-4873-90b1-f6b0e776c894"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "740cc485-1f2b-41d0-b1e6-c43c16dc97ca",
+          "title": "test /markTodoAsArchived",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /markTodoAsArchived illegal argument",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsArchived?id=');\nassert.equal(result.data.id,'null');",
+              "err": {},
+              "uuid": "e6a21fd2-e29b-4079-8709-cb56e8e22afe",
+              "parentUUID": "740cc485-1f2b-41d0-b1e6-c43c16dc97ca",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "could not find object with the id",
+              "fullTitle": "test /markTodoAsArchived could not find object with the id",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsArchived?id=22');\nassert.equal(result.data, false);",
+              "err": {},
+              "uuid": "715c0361-5647-4721-9263-c5d24ac4b5e1",
+              "parentUUID": "740cc485-1f2b-41d0-b1e6-c43c16dc97ca",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "update status of a todo",
+              "fullTitle": "test /markTodoAsArchived update status of a todo",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsArchived', {params:{ id:234}});\nassert.equal(result.data, true);",
+              "err": {
+                "message": "AssertionError: false == true",
+                "estack": "AssertionError [ERR_ASSERTION]: false == true\n    at Context.<anonymous> (tests/alltodoTests.js:431:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": "- false\n+ true\n"
+              },
+              "uuid": "78b22e0c-dc99-425f-8afe-605818ee07c4",
+              "parentUUID": "740cc485-1f2b-41d0-b1e6-c43c16dc97ca",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "e6a21fd2-e29b-4079-8709-cb56e8e22afe",
+            "715c0361-5647-4721-9263-c5d24ac4b5e1"
+          ],
+          "failures": [
+            "78b22e0c-dc99-425f-8afe-605818ee07c4"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "811fef3f-0c31-47a2-b9c4-b8b9a520093d",
+          "title": "test //markTodoAsDone",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test //markTodoAsDone illegal argument",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsDone?id=');\nassert.equal(result.data.id,'null');",
+              "err": {},
+              "uuid": "f39b13f8-d544-4e3d-acca-bb15ec09f8b5",
+              "parentUUID": "811fef3f-0c31-47a2-b9c4-b8b9a520093d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "could not find object with the id",
+              "fullTitle": "test //markTodoAsDone could not find object with the id",
+              "timedOut": false,
+              "duration": 0,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsDone?id=22');\nassert.equal(result.data, false);",
+              "err": {},
+              "uuid": "4b8b7774-107c-4dc4-898b-7b99bd38756f",
+              "parentUUID": "811fef3f-0c31-47a2-b9c4-b8b9a520093d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "update priority of a todo",
+              "fullTitle": "test //markTodoAsDone update priority of a todo",
+              "timedOut": false,
+              "duration": 0,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/markTodoAsDone', {params:{ id:234}});\nassert.equal(result.data.id,'234');\nassert.equal(result.data.description,'be sure to commit unit tests');\nassert.equal(result.data.title,'commit code');\nassert.equal(result.data.dueDate,'02-25-2018');",
+              "err": {
+                "message": "AssertionError: undefined == '234'",
+                "estack": "AssertionError [ERR_ASSERTION]: undefined == '234'\n    at Context.<anonymous> (tests/alltodoTests.js:465:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "f2578d40-a442-42ad-84cd-a80f22b7b606",
+              "parentUUID": "811fef3f-0c31-47a2-b9c4-b8b9a520093d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f39b13f8-d544-4e3d-acca-bb15ec09f8b5",
+            "4b8b7774-107c-4dc4-898b-7b99bd38756f"
+          ],
+          "failures": [
+            "f2578d40-a442-42ad-84cd-a80f22b7b606"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "ecfd166c-d442-449d-90be-b5fd60c7930d",
+          "title": "test /remindOnDueDate",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /remindOnDueDate illegal argument",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/remindOnDueDate?userId=');\nassert.equal(result.data[0].id,'null');\nconst result2 = await axios.get('http://localhost:3001/remindOnDueDate?dueDate=');\nassert.equal(result2.data[0].id,'null');",
+              "err": {},
+              "uuid": "de2ae1c5-2e79-4aa8-9223-5fd04ce3cf38",
+              "parentUUID": "ecfd166c-d442-449d-90be-b5fd60c7930d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "fetch all todo of a specific duedate",
+              "fullTitle": "test /remindOnDueDate fetch all todo of a specific duedate",
+              "timedOut": false,
+              "duration": 2,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'02/25/2018'}});\nassert.equal(result.data[0].id,'2');\nassert.equal(result.data[0].dueDate,'02/25/2018');",
+              "err": {
+                "message": "AssertionError: 'null' == '2'",
+                "estack": "AssertionError [ERR_ASSERTION]: 'null' == '2'\n    at Context.<anonymous> (tests/alltodoTests.js:504:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": "- null\n+ 2\n"
+              },
+              "uuid": "a3af1595-d2c4-4396-8ee3-bb9f0b5e3033",
+              "parentUUID": "ecfd166c-d442-449d-90be-b5fd60c7930d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "it returns empty array if it can not find any thing",
+              "fullTitle": "test /remindOnDueDate it returns empty array if it can not find any thing",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/remindOnDueDate', {params:{ userId:'eaghayi', dueDate:'06/25/2018'}});\nassert.equal(result.data,'');",
+              "err": {
+                "message": "AssertionError: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''",
+                "estack": "AssertionError [ERR_ASSERTION]: [\n  {\n    address: 'null',\n    createdDate: 'null',\n    createdTime: 'null',\n    dataStoreId: 'null',\n    description: 'null',\n    dueDate: 'null',\n    groupId: 'null',\n    id: 'null',\n    priority: 'null',\n    repeat: 'null',\n    status: 'null',\n    title: 'null',\n    userId: 'null'\n  }\n] == ''\n    at Context.<anonymous> (tests/alltodoTests.js:513:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "f7ad641b-1d49-473c-ac49-c80c0cdd7362",
+              "parentUUID": "ecfd166c-d442-449d-90be-b5fd60c7930d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "de2ae1c5-2e79-4aa8-9223-5fd04ce3cf38"
+          ],
+          "failures": [
+            "a3af1595-d2c4-4396-8ee3-bb9f0b5e3033",
+            "f7ad641b-1d49-473c-ac49-c80c0cdd7362"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 4,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "7f0dbd39-3d96-4bb9-b37d-dabff9dd5a2b",
+          "title": "test //updatePriorityOfaTodo",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test //updatePriorityOfaTodo illegal argument",
+              "timedOut": false,
+              "duration": 2,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/updatePriorityOfaTodo?id=');\nassert.equal(result.data.id,'null');\nconst result2 = await axios.get('http://localhost:3001/updatePriorityOfaTodo?priority=');\nassert.equal(result2.data.id,'null');\nconst result3 = await axios.get('http://localhost:3001/updatePriorityOfaTodo?priority=77');\nassert.equal(result3.data.id,'null');",
+              "err": {},
+              "uuid": "081469e1-560f-4518-8895-21d270745f1c",
+              "parentUUID": "7f0dbd39-3d96-4bb9-b37d-dabff9dd5a2b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "could not find object with the id",
+              "fullTitle": "test //updatePriorityOfaTodo could not find object with the id",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/updatePriorityOfaTodo?id=22&priority=3');\n assert.equal(result.data, false);",
+              "err": {},
+              "uuid": "02fb4f92-1f9a-4572-a8e8-c3353909313a",
+              "parentUUID": "7f0dbd39-3d96-4bb9-b37d-dabff9dd5a2b",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "update priority of a todo",
+              "fullTitle": "test //updatePriorityOfaTodo update priority of a todo",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await axios.get('http://localhost:3001/updatePriorityOfaTodo', {params:{ id:234, priority:3}});\nassert.equal(result.data, true);\nconst result2 = await axios.get('http://localhost:3001/updatePriorityOfaTodo', {params:{ id:2342343423, priority:3}});\nassert.equal(result2.data, false);",
+              "err": {},
+              "uuid": "b756e3ff-d378-4277-82ac-01e20d4f1816",
+              "parentUUID": "7f0dbd39-3d96-4bb9-b37d-dabff9dd5a2b",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "081469e1-560f-4518-8895-21d270745f1c",
+            "02fb4f92-1f9a-4572-a8e8-c3353909313a",
+            "b756e3ff-d378-4277-82ac-01e20d4f1816"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "c1883658-76d5-40cd-89fb-8c10ee13913d",
+          "title": "test /updateTodo",
+          "fullFile": "/Users/ezhang/Documents/crowd-microservices-output/tests/alltodoTests.js",
+          "file": "/tests/alltodoTests.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "illegal argument",
+              "fullTitle": "test /updateTodo illegal argument",
+              "timedOut": false,
+              "duration": 2,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await\naxios.get('http://localhost:3001/updateTodo', {params: {id: ''}});\nassert.equal(result.data.id, 'null');\nconst result2 = await\naxios.get('http://localhost:3001/updateTodo', {params: {id: '', title: ''}});\nassert.equal(result2.data.title, 'null');\nconst result3 = await\naxios.get('http://localhost:3001/updateTodo', {params: {id: '', title: '', userId: ''}});\nassert.equal(result3.data.userId, 'null');",
+              "err": {},
+              "uuid": "34a4b20b-9ef4-4b38-9626-c62ef8bc7498",
+              "parentUUID": "c1883658-76d5-40cd-89fb-8c10ee13913d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "update todo",
+              "fullTitle": "test /updateTodo update todo",
+              "timedOut": false,
+              "duration": 1,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const result = await  axios.get('http://localhost:3001/updateTodo',\n    {\n        params: {\n            id: '2',\n            title: 'testAddTodo',\n            userId: 'eaghayi',\n            dueDate:'09-23-2018',\n            status: 2,\n            groupId: 'school',\n            createdTime: '12:39',\n            createdDate: '06-13-2018',\n            priority: 1,\n            address: ' ',\n            repeat: ' '\n        }\n    });\nassert.equal(result.data.id, 2);",
+              "err": {
+                "message": "AssertionError: 'null' == 2",
+                "estack": "AssertionError [ERR_ASSERTION]: 'null' == 2\n    at Context.<anonymous> (tests/alltodoTests.js:596:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "92d36f1c-52bc-49f7-a1ed-bbe9a44aa6a0",
+              "parentUUID": "c1883658-76d5-40cd-89fb-8c10ee13913d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "check checkDateFormat helper method ",
+              "fullTitle": "test /updateTodo check checkDateFormat helper method ",
+              "timedOut": false,
+              "duration": 1,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const result = await  axios.get('http://localhost:3001/updateTodo',\n    {\n        params: {\n            id: '2',\n            title: 'testAddTodo',\n            userId: 'eaghayi',\n            dueDate:'23-2018',\n            status: 2,\n            groupId: 'school',\n            createdTime: '12:39',\n            createdDate: '06-13-2018',\n            priority: 1,\n            address: ' ',\n            repeat: ' '\n        }\n    });\nassert.equal(result.data.id, 'null');",
+              "err": {},
+              "uuid": "7893b37a-3837-4077-8ff6-c2796af866a9",
+              "parentUUID": "c1883658-76d5-40cd-89fb-8c10ee13913d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "34a4b20b-9ef4-4b38-9626-c62ef8bc7498",
+            "7893b37a-3837-4077-8ff6-c2796af866a9"
+          ],
+          "failures": [
+            "92d36f1c-52bc-49f7-a1ed-bbe9a44aa6a0"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 4,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
