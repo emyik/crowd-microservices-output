@@ -18,12 +18,12 @@ def textCompletion(prompt):
         model = model,
         prompt = prompt,
         temperature = temp,
-        max_tokens = 1000
+        max_tokens = 2000
     )
     response = json.loads(str(response))
     content = response['choices'][0]['text']
 
-    with open("service/todo_microservice1.js", "a") as file: # CHANGE
+    with open("service/todo_microservice2.js", "a") as file: # CHANGE
         file.write(content)
     return content
 
@@ -53,20 +53,13 @@ def main():
     functions = extract_function_info(file_path)
     for f in functions:        
         # fill in prompt template with placeholders
-        with open('GPT-CLI-main/prompt_template1.txt', 'r') as file: template = file.read()
+        with open('GPT-CLI-main/prompt_template2.txt', 'r') as file: template = file.read()
         formatted_text = template.format(function=f['name'], description=f['description'])
-
-        # with open("GPT-CLI-main/Prompt.txt", 'w') as destination:
-        #     destination.write(formatted_text)
-        #     destination.close()
-        # file = open("GPT-CLI-main/Prompt.txt", "r")
-        # prompt = file.read()
-        # file.close()
         textCompletion(formatted_text)    
     
     # add the rest of the necessary code to microservice file
     with open("GPT-CLI-main/microservice_template.txt", 'r') as source: text = source.read()
-    with open("service/todo_microservice1.js", 'a') as destination: # CHANGE
+    with open("service/todo_microservice2.js", 'a') as destination: # CHANGE
         destination.write(text)
         destination.close()
 
