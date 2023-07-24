@@ -23,7 +23,7 @@ def textCompletion(prompt):
     response = json.loads(str(response))
     content = response['choices'][0]['text']
 
-    with open("service/todo_microservice2.js", "a") as file: # CHANGE
+    with open("service/shopping_service.js", "a") as file: # CHANGE
         file.write(content)
     return content
 
@@ -45,10 +45,11 @@ def extract_function_info(file_path):
                 current_description = line.strip()
             else:
                 current_description += "\n" + line.strip()
+    functions.append({'name': current_function, 'description': current_description})
     return functions
 
 def main():
-    file_path = 'GPT-CLI-main/functionDescriptions.txt'
+    file_path = 'GPT-CLI-main/shopping_functionDescriptions.txt'
     # get function names and descriptions
     functions = extract_function_info(file_path)
     for f in functions:        
@@ -58,10 +59,10 @@ def main():
         textCompletion(formatted_text)    
     
     # add the rest of the necessary code to microservice file
-    with open("GPT-CLI-main/microservice_template.txt", 'r') as source: text = source.read()
-    with open("service/todo_microservice2.js", 'a') as destination: # CHANGE
-        destination.write(text)
-        destination.close()
+    # with open("GPT-CLI-main/microservice_template.txt", 'r') as source: text = source.read()
+    # with open("service/todo_microservice2.js", 'a') as destination: # CHANGE
+    #     destination.write(text)
+    #     destination.close()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // var shoppingService = require('../service/shopping_session1_service');
-var shoppingService = require('../service/shopping_session2_service');
+var shoppingService = require('../service/shopping_service');
 var testEnvironment = true;
 
 
@@ -203,3 +203,12 @@ router.post('/placeOrder', async (req, res, next) => {
 
 
 module.exports = router;
+
+const app = express();
+app.use('/', router);
+
+// Start the server
+const port = 3001; // Change it to the desired port number
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});

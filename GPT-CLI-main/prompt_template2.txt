@@ -1,1 +1,103 @@
-shopping list
+// ADTs
+type item = {{
+    id: Number,
+    name: String,
+    price: String,
+    rating: String,
+    seller: String,
+    status: String,
+    category: String
+}}
+
+type review = {{
+    id: Number,
+    comment: String,
+    rating: String,
+    userId: String,
+    itemId: Number
+}};
+
+type shoppingCart = {{
+    id: Number,
+    itemList: item[],
+    userId: String
+}}
+
+type log = {{
+    id: Number,
+    userId: String,
+    itemId: Number,
+    action: String,
+    date: String
+}}
+
+type user = {{
+    firstName: String,
+    lastName: String,
+    address: String,
+    userId: String,
+    id: Number
+}}
+
+// 3rd party API functions
+function FetchObjectsImplementation(adtType) {{
+    if (testEnvironment) {{
+        if (adtType === 'item') {{
+            return itemList;
+        }}
+        if (adtType == 'user') {{
+            return userList;
+        }} else if (adtType == 'log') {{
+            return logList;
+        }} else if (adtType == 'shoppingCart') {{
+            return shoppingCartist;
+        }} else {{
+            return [];
+        }}
+
+    }} else {{
+        const listOFTodos = firebaseUtil.fetchAllTodosDAO("emadaghayi").on('value', function (snapshot) {{
+            res.send(snapshot.val());
+        }});
+
+        return listOFTodos;
+    }}
+}}
+
+async function SaveObjectImplementation(object) {{
+    if (testEnvironment) {{
+
+        return object;
+    }} else {{
+        await firebaseUtil.saveObjectDAO(object.title, object.description, object.dueDate, object.dataStoreId, object.userId, object.id,
+            object.status, object.groupId, object.priority, object.address, object.repeat);
+        return "Saved";
+    }}
+}}
+
+async function UpdateObjectImplementation(todo) {{
+    if (testEnvironment) {{
+
+        return todo;
+    }} else {{
+        await firebaseUtil.updateObjectDAO(todo);
+        return "updated";
+    }}
+}}
+
+async function DeleteObjectImplementation(todo) {{
+    if (testEnvironment) {{
+
+        return todo;
+    }} else {{
+        const firebasePromise = await firebaseUtil.deleteObjectDao(todo.id);
+
+        var result = await firebasePromise;
+
+        return result;
+    }}
+}}
+
+You are a professional who writes Javascript functions.
+Please write the function {function} with the following functionality: {description}.
+You may call on the third party API functions.
