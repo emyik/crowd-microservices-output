@@ -16,11 +16,21 @@ ChatGPT-generated Javascript functions.
 `allShoppingTests.js` and `alltodoTests.js` contain unit tests for both codebases.
 
 ## How To Run Project
-To generate functions run ```python GPT-CLI-main/automatedUseAPI.py```
+To generate functions run 
+~~~
+python GPT-CLI-main/automatedUseAPI.py
+~~~
 
-To run the server run `node routes/todo_endpoints.js`.
+To run the server run 
+~~~
+node routes/todo_endpoints.js
+~~~
 
-To execute unit tests run `npx mocha tests/alltodoTests.js --reporter mochawesome`. This uses Mochawesome, a custom reporter for use with the Javascript testing framework, mocha. It generates a HTML/CSS report to visualize test runs.
+To execute unit tests run 
+~~~
+npx mocha tests/alltodoTests.js --reporter mochawesome
+~~~
+This uses Mochawesome, a custom reporter for use with the Javascript testing framework, mocha. It generates a HTML/CSS report to visualize test runs.
 
 
 _Created by Emi Zhang, Henry Hu, Manohar Nookala, Emad Aghayi, and Thomas LaToza at the Department of Computer Science, George Mason University._
